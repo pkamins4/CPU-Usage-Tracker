@@ -1,11 +1,16 @@
 #ifndef QUEUE_H
 #define QUEUE_H
+#include<semaphore.h>
+#include<pthread.h>
 
 #define DATA_LENGTH 1024
-#define MAX_QUEUE_LENGTH 64
+#define PSHARED 0
+
 #define QUEUE_CRITICAL_FAILURE -1
-#define QUEUE_EMPTY -2
-#define QUEUE_FULL -3
+#define QUEUE_INIT_FAILURE -2
+#define QUEUE_DESTROY_FAILURE -3
+
+
 
 typedef struct Node
 {
@@ -19,15 +24,17 @@ typedef struct Queue
 	Node *head;
 	Node *tail;
 
-	int queueLength;
+	sem_t emptySlots;
+	sem_t fullSlots;
+
+	pthread_mutex_t bufferLock;
 
 } Queue;
 
 
-void queueInit(Queue*);
+int queueInit(Queue*, unsigned int);
 int queueDestroy(Queue*);
 int enqueue(Queue*, char*);
 int dequeue(Queue*, char*);
 
-
-#endif 
+#endif

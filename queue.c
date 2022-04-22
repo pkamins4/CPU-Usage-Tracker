@@ -3,11 +3,25 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-void queueInit(Queue *q)
+int queueInit(Queue *q, unsigned int queueLength)
 {
 	q->head = NULL;
 	q->tail = NULL;
-	q->queueLength = 0;
+
+	if(sem_init(&(q->emptySlots), PSHARED, queueLength) != 0)
+	{
+		return QUEUE_INIT_FAILURE;
+	}
+	if(sem_init(&(q->fullSlots), PSHARED, 0) != 0)
+	{
+		return QUEUE_INIT_FAILURE;
+	}	
+	if(pthread_mutex_init(&(q->bufferLock), NULL) != 0)
+	{
+		return QUEUE_INIT_FAILURE;
+	}
+
+	return 0;
 }
 
 int queueDestroy(Queue *q)
@@ -20,16 +34,27 @@ int queueDestroy(Queue *q)
 		q->head = q->head->next;
 		free(temp);
 	}
-	q->queueLength = 0;
+
+	if(sem_destroy(&(q->emptySlots)) != 0)
+	{
+		return QUEUE_DESTROY_FAILURE;
+	}
+	if(sem_destroy(&(q->fullSlots)) != 0)
+	{
+		return QUEUE_DESTROY_FAILURE;
+	}
+	if(pthread_mutex_destroy(&(q->bufferLock)) != 0)
+	{
+		return QUEUE_DESTROY_FAILURE;
+	}
+	
 	return 0;
 }
 
 int enqueue(Queue *q, char *newData)
 {
-	if(q->queueLength == MAX_QUEUE_LENGTH)
-	{
-		return QUEUE_FULL;
-	}
+	sem_wait(&(q->emptySlots));
+	pthread_mutex_lock(&(q->bufferLock));
 
 	Node *newNode = malloc(sizeof(Node));
 	if(newNode == NULL)
@@ -50,17 +75,18 @@ int enqueue(Queue *q, char *newData)
 	{
 		q->head = newNode;
 	}
-	q->queueLength++;
+	
+	pthread_mutex_unlock(&(q->bufferLock));
+	sem_post(&(q->fullSlots));
 
 	return 0;
 }
 
 int dequeue(Queue *q, char* buffer)
 {
-	if(q->head == NULL)
-	{
-		return QUEUE_EMPTY; 
-	}
+	sem_wait(&(q->fullSlots));
+	pthread_mutex_lock(&(q->bufferLock));
+
 	Node *temp = q->head;
 
 	memcpy(buffer, temp->data, sizeof(char)*DATA_LENGTH);
@@ -71,7 +97,9 @@ int dequeue(Queue *q, char* buffer)
 		q->tail = NULL;
 	}
 	free(temp);
-	q->queueLength--;
+
+	pthread_mutex_unlock(&(q->bufferLock));
+	sem_post(&(q->emptySlots));
 
 	return 0;
 }
