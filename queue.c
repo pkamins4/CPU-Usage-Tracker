@@ -7,6 +7,7 @@ void queueInit(Queue *q)
 {
 	q->head = NULL;
 	q->tail = NULL;
+	q->queueLength = 0;
 }
 
 int queueDestroy(Queue *q)
@@ -19,11 +20,17 @@ int queueDestroy(Queue *q)
 		q->head = q->head->next;
 		free(temp);
 	}
+	q->queueLength = 0;
 	return 0;
 }
 
 int enqueue(Queue *q, char *newData)
 {
+	if(q->queueLength == MAX_QUEUE_LENGTH)
+	{
+		return QUEUE_FULL;
+	}
+
 	Node *newNode = malloc(sizeof(Node));
 	if(newNode == NULL)
 	{
@@ -43,6 +50,7 @@ int enqueue(Queue *q, char *newData)
 	{
 		q->head = newNode;
 	}
+	q->queueLength++;
 
 	return 0;
 }
@@ -63,6 +71,7 @@ int dequeue(Queue *q, char* buffer)
 		q->tail = NULL;
 	}
 	free(temp);
+	q->queueLength--;
 
 	return 0;
 }

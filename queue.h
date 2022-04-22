@@ -2,8 +2,10 @@
 #define QUEUE_H
 
 #define DATA_LENGTH 1024
+#define MAX_QUEUE_LENGTH 64
 #define QUEUE_CRITICAL_FAILURE -1
 #define QUEUE_EMPTY -2
+#define QUEUE_FULL -3
 
 typedef struct Node
 {
@@ -17,14 +19,14 @@ typedef struct Queue
 	Node *head;
 	Node *tail;
 
+	int queueLength;
+
 } Queue;
 
 
 void queueInit(Queue*);
-void queueDestroy(Queue*);
-
+int queueDestroy(Queue*);
 int enqueue(Queue*, char*);
-
 int dequeue(Queue*, char*);
 
 
