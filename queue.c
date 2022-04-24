@@ -10,15 +10,15 @@ int queueInit(Queue *q, unsigned int queueLength)
 
 	if(sem_init(&(q->emptySlots), PSHARED, queueLength) != 0)
 	{
-		return QUEUE_INIT_FAILURE;
+		return QUEUE_ERROR;
 	}
 	if(sem_init(&(q->fullSlots), PSHARED, 0) != 0)
 	{
-		return QUEUE_INIT_FAILURE;
+		return QUEUE_ERROR;
 	}	
 	if(pthread_mutex_init(&(q->bufferLock), NULL) != 0)
 	{
-		return QUEUE_INIT_FAILURE;
+		return QUEUE_ERROR;
 	}
 
 	return 0;
@@ -37,15 +37,15 @@ int queueDestroy(Queue *q)
 
 	if(sem_destroy(&(q->emptySlots)) != 0)
 	{
-		return QUEUE_DESTROY_FAILURE;
+		return QUEUE_ERROR;
 	}
 	if(sem_destroy(&(q->fullSlots)) != 0)
 	{
-		return QUEUE_DESTROY_FAILURE;
+		return QUEUE_ERROR;
 	}
 	if(pthread_mutex_destroy(&(q->bufferLock)) != 0)
 	{
-		return QUEUE_DESTROY_FAILURE;
+		return QUEUE_ERROR;
 	}
 	
 	return 0;
@@ -59,7 +59,7 @@ int enqueue(Queue *q, char *newData)
 	Node *newNode = malloc(sizeof(Node));
 	if(newNode == NULL)
 	{
-		return QUEUE_CRITICAL_FAILURE;
+		return QUEUE_ERROR;
 	}
 
 	memcpy(newNode->data, newData, sizeof(char)*DATA_LENGTH);

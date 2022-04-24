@@ -1,24 +1,27 @@
+/*
+	author: Piotr Kamiński
+*/
+
 #include<stdio.h>
 #include<string.h>
 #include<unistd.h>
+#include<pthread.h>
+#include<stdlib.h>
+#include<signal.h>
+#include<time.h>
 
-
+void sigtermHandler(int);
 
 int main()
 {
+	
+	signal(SIGTERM, &sigtermHandler); /* because c99...*/
 
-	FILE *f ;
-	char buffer[1024];
-
-	while(1)
-	{
-		f = fopen("/proc/stat", "r");
-		fread(buffer, 1, 1024, f);
-		printf("%s\n\n\n", buffer);
-		fclose(f);
-		usleep(1000);
-	}
 	printf("Hello\n");
 	return 0;
 }
 
+void sigtermHandler(int sig)
+{
+	printf("xd%d\n", sig);
+}

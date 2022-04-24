@@ -3,19 +3,16 @@
 #include<semaphore.h>
 #include<pthread.h>
 
-#define DATA_LENGTH 1024
+#define DATA_LENGTH 2048
 #define PSHARED 0
 
-#define QUEUE_CRITICAL_FAILURE -1
-#define QUEUE_INIT_FAILURE -2
-#define QUEUE_DESTROY_FAILURE -3
-
-
+#define QUEUE_ERROR -1
 
 typedef struct Node
 {
 	char data[DATA_LENGTH];
 	struct Node *next;
+	
 } Node;
 
 
