@@ -18,7 +18,7 @@ typedef struct CpuStat
 	int softirq;
 	int steal;
 	int guest;
-	int gueast_nice;
+	int guest_nice;
 } CpuStat;
 
 typedef struct AnalyzerComm
@@ -29,7 +29,7 @@ typedef struct AnalyzerComm
 	CpuStat *current;
 	CpuStat *previous;
 	
-	pthread_mutex_t averageResultsLock;
+	pthread_mutex_t *averageResultsLock;
 } AnalyzerComm; 
 
 
