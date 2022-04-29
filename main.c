@@ -17,7 +17,8 @@ int main()
 	
 	signal(SIGTERM, &sigtermHandler); /* because c99...*/
 
-	printf("Hello\n");
+	printf("TOTAL\tB%%\tC\n");
+	//for(;;){}
 	return 0;
 }
 

@@ -3,6 +3,6 @@
 
 #define PATH "/proc/stat"
 
-void readFunction(void*);
+void* readFunction(void*);
 
 #endif

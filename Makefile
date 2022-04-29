@@ -15,7 +15,7 @@ else
 endif
 
 
-CUT: main.o queue.o reader.o analyzer.o
+CUT: main.o queue.o reader.o analyzer.o printer.o
 	$(CC) $(STD_FLAG) $(CFLAGS) $(DEBUG_FLAG) $(LDFLAGS) -o $(@) $(^)
 
 .PHONY: clean

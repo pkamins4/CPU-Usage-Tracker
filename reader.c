@@ -4,7 +4,7 @@
 #include<stdio.h>
 
 
-void readFunction(void *queueArg)
+void* readFunction(void *queueArg)
 {
 	FILE *statFile;
 
@@ -17,7 +17,7 @@ void readFunction(void *queueArg)
 		fread(statBuffer, sizeof(char), DATA_LENGTH, statFile);		
 		fclose(statFile);
 
-		enqueue(toAnalyzer, freadBuffer);
+		enqueue(toAnalyzer, statBuffer);
 	}
 
 }
