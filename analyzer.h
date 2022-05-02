@@ -3,7 +3,7 @@
 #include"queue.h"
 
 #define CORE_STR_LEN 8
-
+#define MALLOC_FAILURE -2
 
 
 typedef struct CpuStat
@@ -23,19 +23,19 @@ typedef struct CpuStat
 } CpuStat;
 
 typedef struct AnalyzerComm
-{
+{	
 	Queue *fromReader;
-	int *coreCount;
-	float *averageResults;
 	CpuStat *current;
 	CpuStat *previous;
-	
-	pthread_mutex_t *averageResultsLock;
+	pthread_mutex_t averageResultsLock;
+	long coreCount;
+	double *averageResults;
+
 } AnalyzerComm; 
 
 int StringOccuranceCount(char*, char*);
-void analyzeFunction(void*);
-void analyzerInit(AnalyzerComm*);
+void* analyzeFunction(void*);
+int analyzerInit(AnalyzerComm*);
 void analyzerDestroy(AnalyzerComm*);
 
 #endif

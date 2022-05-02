@@ -24,6 +24,7 @@ int queueInit(Queue *q, unsigned int queueLength)
 	return 0;
 }
 
+
 int queueDestroy(Queue *q)
 {	
 	Node *temp;	
@@ -50,6 +51,8 @@ int queueDestroy(Queue *q)
 	
 	return 0;
 }
+
+
 
 int enqueue(Queue *q, char *newData)
 {
@@ -84,8 +87,10 @@ int enqueue(Queue *q, char *newData)
 
 int dequeue(Queue *q, char* buffer)
 {
+
 	sem_wait(&(q->fullSlots));
 	pthread_mutex_lock(&(q->bufferLock));
+
 
 	Node *temp = q->head;
 

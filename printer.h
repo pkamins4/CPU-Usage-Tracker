@@ -1,19 +1,15 @@
-#ifndef QUEUE_H
-#define QUEUE_H
+#ifndef PRINTER_H
+#define PRINTER_H
 #include<pthread.h>
 
-typedef struct ReaderComm
+typedef struct PrinterComm
 {
-	int *coreCount;
-	float *averageResults;
+	long *coreCount;
+	double *averageResults;
 	pthread_mutex_t *averageResultsLock;
 
-} ReaderComm;
+} PrinterComm;
 
 void* printFunction(void*);
-
-
-
-
 
 #endif

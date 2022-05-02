@@ -2,10 +2,11 @@
 #include <unistd.h>
 #include <stdio.h>
 
+#define AVG_START 0.5
 
 void* printFunction(void* commArg)
 {
-	ReaderComm *interThreadComm = (ReaderComm*)commArg;
+	PrinterComm *interThreadComm = (PrinterComm*)commArg;
 	int i;
 
 
@@ -14,10 +15,12 @@ void* printFunction(void* commArg)
 		sleep(1);
 
 		pthread_mutex_lock(interThreadComm->averageResultsLock);
-		printf("TOTAL:\t%.2f%%\n", (double)(interThreadComm->averageResults[0]));
+		printf("\nTOTAL:\t%.2f%%\n", (100*interThreadComm->averageResults[0]));
+		interThreadComm->averageResults[0] = AVG_START;
 		for( i = 1 ; i < *(interThreadComm->coreCount) ; i++)
 		{
-			printf("CORE%d\t%.2f%%\n", i,(double)(interThreadComm->averageResults[0]));
+			printf("CORE%d\t%.2f%%\n", i,(100*interThreadComm->averageResults[i]));
+			interThreadComm->averageResults[i] = AVG_START;
 		}
 		pthread_mutex_unlock(interThreadComm->averageResultsLock);
 	}
