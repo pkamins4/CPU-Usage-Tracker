@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #define PATH "/proc/stat"
+#define SLEEP_TIME 50000000 //50 ms
 
 typedef struct ReaderComm
 {

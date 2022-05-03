@@ -19,7 +19,7 @@
 #define MAIN_SLEEP 10
 
 
-static volatile sig_atomic_t done = 0;
+static volatile sig_atomic_t signalReceived = 0;
 
 void sigtermHandler(int);
 
@@ -63,7 +63,7 @@ int main()
 	pthread_create(&analyzer, NULL, &analyzeFunction, &analyzerArg);
 	pthread_create(&printer, NULL, &printFunction, &printerArg);
 
-	while(!done)
+	while(!signalReceived)
 	{
 		sleep(MAIN_SLEEP);
 	}
@@ -85,6 +85,5 @@ int main()
 
 void sigtermHandler(int sig)
 {
-	if(sig == SIGTERM || sig == SIGINT)
-		done = 1;
+		signalReceived = sig;
 }

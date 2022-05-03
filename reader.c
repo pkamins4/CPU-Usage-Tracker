@@ -4,7 +4,6 @@
 #include<stdio.h>
 #include <time.h>
 
-#define SLEEP_TIME 50000000 //50 ms
 
 void* readFunction(void *readerArg)
 {
