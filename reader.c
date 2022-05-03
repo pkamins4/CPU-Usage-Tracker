@@ -14,27 +14,19 @@ void* readFunction(void *readerArg)
 	ReaderComm *interThreadComm = (ReaderComm*)readerArg;
 
 
-	char statBuffer[DATA_LENGTH] = {0};
-
-	
+	char statBuffer[DATA_LENGTH] = {0};	
 	while(1)
 	{
 		nanosleep(&readWait, NULL);
 
+		pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
 		interThreadComm->statFile = fopen(PATH, "r");
 		fread(statBuffer, sizeof(char), DATA_LENGTH, interThreadComm->statFile );		
 		fclose(interThreadComm->statFile );
 		interThreadComm->statFile = NULL;
-		
+		pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
 		enqueue(interThreadComm->toAnalyzer, statBuffer);		
 	}
 
 }
 
-void readerDestroy(ReaderComm* readerArg)
-{
-	if(readerArg->statFile != NULL)
-	{
-		fclose(readerArg->statFile );
-	}
-}

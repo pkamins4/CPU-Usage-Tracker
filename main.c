@@ -76,7 +76,6 @@ int main()
 	pthread_join(printer, NULL);
 	
 	queueDestroy(&readerAnalyzerComm);
-	readerDestroy(&readerArg);
 	analyzerDestroy(&analyzerArg);
 		
 	

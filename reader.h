@@ -12,6 +12,6 @@ typedef struct ReaderComm
 } ReaderComm;
 
 void* readFunction(void*);
-void readerDestroy(ReaderComm*);
+
 
 #endif
