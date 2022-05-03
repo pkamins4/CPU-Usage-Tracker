@@ -1,4 +1,5 @@
 #include"logger.h"
+#include <stdbool.h>
 
 void* logFunction(void *loggerArg)
 {
@@ -31,7 +32,7 @@ void loggerDestroy(LoggerComm *loggerArg)
 	}
 }
 
-void sendLog(LoggerComm *loggerArg, char *message)
+void sendLog(LoggerComm *loggerArg, const char *message)
 {
-	enqueue(loggerArg->threadsInfo, message);
+	enqueue(loggerArg->threadsInfo, (char*)message);
 }
