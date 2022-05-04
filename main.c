@@ -108,7 +108,6 @@ int main()
 	queueDestroy(&readerAnalyzerComm);
 
 	queueDestroy(&toLogger);
-	readerDestroy(&readerArg);
 	analyzerDestroy(&analyzerArg);		
 	loggerDestroy(&loggerArg);
 
@@ -117,5 +116,5 @@ int main()
 
 void sigtermHandler(int sig)
 {
-		signalReceived = sig;
+	signalReceived = sig;
 }

@@ -20,8 +20,7 @@ void* readFunction(void *readerArg)
 
 		pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
 		interThreadComm->statFile = fopen(PATH, "r");
-		fread(statBuffer, sizeof(char), DATA_LENGTH, interThreadComm->statFile );
-				
+		fread(statBuffer, sizeof(char), DATA_LENGTH, interThreadComm->statFile );				
 		fclose(interThreadComm->statFile );
 		interThreadComm->statFile = NULL;
 		pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
