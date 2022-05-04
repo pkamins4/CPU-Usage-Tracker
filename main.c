@@ -45,7 +45,8 @@ int main()
 	sendLog(&loggerArg, "Programm started working.");
 	
 
-	pthread_t reader, analyzer, printer; 	
+	pthread_t reader, analyzer, printer;
+
 	Queue readerAnalyzerComm;	
 	ReaderComm readerArg;
 	AnalyzerComm analyzerArg;
@@ -89,7 +90,7 @@ int main()
 	pthread_create(&reader, NULL, &readFunction, &readerArg);
 	pthread_create(&analyzer, NULL, &analyzeFunction, &analyzerArg);
 	pthread_create(&printer, NULL, &printFunction, &printerArg);
-
+	
 	while(!signalReceived)
 	{
 		sleep(MAIN_SLEEP);
