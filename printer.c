@@ -8,7 +8,7 @@ void* printFunction(void* commArg)
 {
 	PrinterComm *interThreadComm = (PrinterComm*)commArg;
 	int i;
-
+	sendLog(interThreadComm->logger, "Printer thread running.");	
 
 	while(1)
 	{

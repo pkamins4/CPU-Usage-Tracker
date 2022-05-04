@@ -15,7 +15,7 @@ else
 endif
 
 
-CUT: main.o queue.o reader.o analyzer.o printer.o
+CUT: main.o queue.o reader.o analyzer.o printer.o logger.o
 	$(CC) $(STD_FLAG) $(CFLAGS) $(DEBUG_FLAG) $(LDFLAGS) $(^) -o $(@)
 main.o: main.c
 	$(CC) $(STD_FLAG) $(CFLAGS) $(DEBUG_FLAG) $(LDFLAGS) -c $(^) -o $(@)
@@ -26,6 +26,8 @@ reader.o: reader.c
 analyzer.o: analyzer.c
 	$(CC) $(STD_FLAG) $(CFLAGS) $(DEBUG_FLAG) $(LDFLAGS) -c $(^) -o $(@)
 printer.o: printer.c
+	$(CC) $(STD_FLAG) $(CFLAGS) $(DEBUG_FLAG) $(LDFLAGS) -c $(^) -o $(@)
+logger.o: logger.c
 	$(CC) $(STD_FLAG) $(CFLAGS) $(DEBUG_FLAG) $(LDFLAGS) -c $(^) -o $(@)
 
 

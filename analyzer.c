@@ -15,6 +15,7 @@ void* analyzeFunction(void *commArg)
 	int i;
 	double idle, prevIdle, total, prevTotal, totalDiff;
 
+	sendLog(interThreadComm->logger, "Analyzer thread running.");
 	
 	while(1)
 	{
