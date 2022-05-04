@@ -6,10 +6,12 @@ void* logFunction(void *loggerArg)
 	LoggerComm *interThreadComm = (LoggerComm*)loggerArg;
 	char buffer[DATA_LENGTH]={0};
 
+
 	while(true)
 	{
 		dequeue(interThreadComm->threadsInfo, buffer);
 		fprintf(interThreadComm->logs, "%s\n", buffer);
+		fflush(interThreadComm->logs);
 	}
 
 }
@@ -28,6 +30,7 @@ void loggerDestroy(LoggerComm *loggerArg)
 {
 	if(loggerArg->logs != NULL)
 	{
+		fprintf(loggerArg->logs, "%s\n", "Program finished.");
 		fclose(loggerArg->logs);
 	}
 }

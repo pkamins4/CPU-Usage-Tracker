@@ -11,7 +11,7 @@ void* readFunction(void *readerArg)
 	readWait.tv_sec = (time_t)0;
 	readWait.tv_nsec = (long)SLEEP_TIME;
 	ReaderComm *interThreadComm = (ReaderComm*)readerArg;
-
+	sendLog(interThreadComm->logger, "Reader thread running.");	
 
 	char statBuffer[DATA_LENGTH] = {0};
 
@@ -21,7 +21,8 @@ void* readFunction(void *readerArg)
 		nanosleep(&readWait, NULL);
 
 		interThreadComm->statFile = fopen(PATH, "r");
-		fread(statBuffer, sizeof(char), DATA_LENGTH, interThreadComm->statFile );		
+		fread(statBuffer, sizeof(char), DATA_LENGTH, interThreadComm->statFile );
+				
 		fclose(interThreadComm->statFile );
 		interThreadComm->statFile = NULL;
 		
