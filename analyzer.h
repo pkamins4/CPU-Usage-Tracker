@@ -31,10 +31,10 @@ typedef struct CpuStat
 
 } CpuStat;
 
-typedef struct AnalyzerComm
+typedef struct Analyzer
 {	
 	Queue *fromReader;
-	LoggerComm *logger;
+	Logger *loggerHandle;
 	CpuStat *current;
 	CpuStat *previous;
 	pthread_mutex_t averageResultsLock;
@@ -42,11 +42,11 @@ typedef struct AnalyzerComm
 	double *averageResults;
 	pthread_t watchdogHandle;
 
-} AnalyzerComm; 
+} Analyzer; 
 
 int StringOccuranceCount(char*, char*);
-void* analyzeFunction(void*);
-int analyzerInit(AnalyzerComm*);
-void analyzerDestroy(AnalyzerComm*);
+void* analyzerRun(void*);
+int analyzerInit(Analyzer*);
+void analyzerDestroy(Analyzer*);
 
 #endif

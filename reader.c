@@ -1,29 +1,35 @@
 #include"reader.h"
 
-void* readFunction(void *readerArg)
+
+
+void* readerRun(void *readerArg)
 {
-	struct timespec readWait;
-	readWait.tv_sec = (long)0;
-	readWait.tv_nsec = (long)SLEEP_TIME_NSEC;
-	ReaderComm *interThreadComm = (ReaderComm*)readerArg;
-	sendLog(interThreadComm->logger, "Reader thread running.");	
+	Reader *r = (Reader*)readerArg;
+	sendLog(r->loggerHandle, "Reader thread running.");	
 	char statBuffer[DATA_LENGTH] = {0};
 
-
-	while(1)
+	while(true)
 	{
-		nanosleep(&readWait, NULL);
-		pthread_kill(interThreadComm->watchdogHandle, READER_SIG);
+		nanosleep(&r->waitTime, NULL);
+		pthread_kill(r->watchdogHandle, READER_SIG);
 
 		pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
-		interThreadComm->statFile = fopen(PATH, "r");
-		fread(statBuffer, sizeof(char), DATA_LENGTH, interThreadComm->statFile );				
-		fclose(interThreadComm->statFile );
-		interThreadComm->statFile = NULL;
+		
+		r->statFile = fopen(PATH, "r");
+		fread(statBuffer, sizeof(char), DATA_LENGTH, r->statFile);				
+		fclose(r->statFile);
+		
 		pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
 
-		enqueue(interThreadComm->toAnalyzer, statBuffer);		
+		enqueue(r->toAnalyzer, statBuffer);		
 	}
 
 }
+
+void readerInit(Reader *r)
+{
+	(r->waitTime).tv_sec	=(long)0;
+	(r->waitTime).tv_nsec	=(long)SLEEP_TIME_NSEC;
+}
+
 

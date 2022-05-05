@@ -1,7 +1,4 @@
 #include"queue.h"
-#include<string.h>
-#include<stdio.h>
-#include<stdlib.h>
 
 int queueInit(Queue *q, unsigned int queueLength)
 {

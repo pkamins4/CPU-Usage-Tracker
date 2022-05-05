@@ -28,104 +28,95 @@ void sigtermHandler(int);
 int main()
 {
 	int retValue = 0;
-	pthread_t logger;
+	pthread_t loggerThread, readerThread, analyzerThread, printerThread, watchdogThread;
 	Queue toLogger;
-	LoggerComm loggerArg;
-
-
 	retValue = queueInit(&toLogger, QUEUE_LENGTH);
 	if(retValue < 0)
 	{
-		perror("Process ended in failure.\n");
+		fputs("Process ended in failure.\n", stderr);
 		return retValue;
 	}
 
-	loggerArg.threadsInfo = &toLogger;
-	loggerInit(&loggerArg);
-	pthread_create(&logger, NULL, &logFunction, &loggerArg);
-	sendLog(&loggerArg, "Programm started working.");
-	
+	Logger logger;
+	logger.threadsInfo = &toLogger;
+	loggerInit(&logger);	
+	pthread_create(&loggerThread, NULL, &loggerRun, &logger);
+	sendLog(&logger, "Programm started working.");
 
-	pthread_t reader, analyzer, printer, watchdogThread;
-
-	Queue readerAnalyzerComm;	
-	ReaderComm readerArg;
-	AnalyzerComm analyzerArg;
-	PrinterComm printerArg;
 	Watchdog watchdog;
 	watchdog.mainHandle = pthread_self();
 	watchdogInit(&watchdog);
-	
-	
-	
-	signal(SIGTERM, &sigtermHandler);
-	sendLog(&loggerArg, "Signal SIGTERM handler registered.");
+	pthread_create(&watchdogThread, NULL, &watchdogRun, &watchdog); 
 
-	
-	signal(SIGINT, &sigtermHandler);
-	sendLog(&loggerArg, "Signal SIGINT handler registered.");	
-
+	Queue readerAnalyzerComm;
 	retValue = queueInit(&readerAnalyzerComm, QUEUE_LENGTH);
 	if(retValue < 0)
 	{
 		queueDestroy(&toLogger);
-		perror("Process ended in failure.\n");
+		fputs("Process ended in failure.\n", stderr);
 		return retValue;
 	}
 
-	
-	pthread_create(&watchdogThread, NULL, &watchdogRun, &watchdog);
-	readerArg.toAnalyzer = &readerAnalyzerComm;
-	readerArg.logger = &loggerArg;
-	readerArg.watchdogHandle = watchdogThread;
-	analyzerArg.fromReader = &readerAnalyzerComm;
-	analyzerArg.logger = &loggerArg;
-	analyzerArg.watchdogHandle = watchdogThread;
-	
-	retValue = analyzerInit(&analyzerArg);
+	Reader reader;
+	reader.toAnalyzer = &readerAnalyzerComm;
+	reader.loggerHandle = &logger;
+	reader.watchdogHandle = watchdogThread;
+	readerInit(&reader);
+
+	Analyzer analyzer;
+	analyzer.fromReader = &readerAnalyzerComm;
+	analyzer.loggerHandle = &logger;
+	analyzer.watchdogHandle = watchdogThread;	
+	retValue = analyzerInit(&analyzer);
 	if(retValue < 0)
 	{
 		queueDestroy(&toLogger);
 		queueDestroy(&readerAnalyzerComm);
-		perror("Process ended in failure.\n");
+		fputs("Process ended in failure.\n", stderr);
 		return retValue;
 	}
 
+	Printer printer;
+	printer.coreCount = &(analyzer.coreCount);
+	printer.averageResults = analyzer.averageResults;
+	printer.averageResultsLock = &(analyzer.averageResultsLock);
+	printer.loggerHandle = &logger;
+	printer.watchdogHandle = watchdogThread;
 	
+	signal(SIGTERM, &sigtermHandler);
+	sendLog(&logger, "Signal SIGTERM handler registered.");
 
-	printerArg.coreCount = &(analyzerArg.coreCount);
-	printerArg.averageResults = analyzerArg.averageResults;
-	printerArg.averageResultsLock = &(analyzerArg.averageResultsLock);
-	printerArg.logger = &loggerArg;
-	printerArg.watchdogHandle = watchdogThread;
+	
+	signal(SIGINT, &sigtermHandler);
+	sendLog(&logger, "Signal SIGINT handler registered.");	
 
-	pthread_create(&reader, NULL, &readFunction, &readerArg);
-	pthread_create(&analyzer, NULL, &analyzeFunction, &analyzerArg);
-	pthread_create(&printer, NULL, &printFunction, &printerArg);
+	pthread_create(&readerThread, NULL, &readerRun, &reader);
+	pthread_create(&analyzerThread, NULL, &analyzerRun, &analyzer);
+	pthread_create(&printerThread, NULL, &printerRun, &printer);
 	
-	
+	sendLog(&logger, "Main waiting for ending signal...");	
+
 	while(!signalReceived)
 	{
 		sleep(MAIN_SLEEP);
 	}
 	
-	sendLog(&loggerArg, "Signal received. Ending...");
-	pthread_cancel(reader);
-	pthread_join(reader, NULL);
-	pthread_cancel(analyzer);
-	pthread_join(analyzer, NULL);
-	pthread_cancel(printer);	
-	pthread_join(printer, NULL);
-	pthread_cancel(logger);	
-	pthread_join(logger, NULL);
+	sendLog(&logger, "Signal received by main. Ending...");
+	pthread_cancel(readerThread);
+	pthread_join(readerThread, NULL);
+	pthread_cancel(analyzerThread);
+	pthread_join(analyzerThread, NULL);
+	pthread_cancel(printerThread);	
+	pthread_join(printerThread, NULL);
+	pthread_cancel(loggerThread);	
+	pthread_join(loggerThread, NULL);
 	pthread_cancel(watchdogThread);	
 	pthread_join(watchdogThread, NULL);
 	
 	queueDestroy(&readerAnalyzerComm);
-
 	queueDestroy(&toLogger);
-	analyzerDestroy(&analyzerArg);		
-	loggerDestroy(&loggerArg);
+	analyzerDestroy(&analyzer);		
+	loggerDestroy(&logger);
 
 	return retValue;
 }
@@ -133,5 +124,7 @@ int main()
 void sigtermHandler(int sig)
 {
 	if(sig == SIGTERM || sig == SIGINT)
+	{
 		signalReceived = sig;
+	}
 }

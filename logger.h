@@ -7,16 +7,16 @@
 #define LOG_FILE "CPU_Tracker.log"
 #define LOG_FILE_FAILURE -3
 
-typedef struct LoggerComm
+typedef struct Logger
 {
 	Queue *threadsInfo;
 	FILE *logs;
 
-} LoggerComm;
+} Logger;
 
-void* logFunction(void*);
-int loggerInit(LoggerComm*);
-void loggerDestroy(LoggerComm*);
-void sendLog(LoggerComm*, char*);
+void* loggerRun(void*);
+int loggerInit(Logger*);
+void loggerDestroy(Logger*);
+void sendLog(Logger*, char*);
 
 #endif

@@ -1,4 +1,4 @@
-CC = clang
+CC = gcc
 
 C_STD_FLAG = -std=c99
 

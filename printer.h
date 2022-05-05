@@ -5,16 +5,16 @@
 #include"logger.h"
 #include"watchdog.h"
 
-typedef struct PrinterComm
+typedef struct Printer
 {
 	long *coreCount;
 	double *averageResults;
 	pthread_mutex_t *averageResultsLock;
-	LoggerComm *logger;
+	Logger *loggerHandle;
 	pthread_t watchdogHandle;
 
-} PrinterComm;
+} Printer;
 
-void* printFunction(void*);
+void* printerRun(void*);
 
 #endif

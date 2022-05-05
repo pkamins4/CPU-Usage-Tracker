@@ -1,138 +1,138 @@
 #include"analyzer.h"
 
-void* analyzeFunction(void *commArg)
+void* analyzerRun(void *analyzerArg)
 {
-	AnalyzerComm *interThreadComm = (AnalyzerComm*)commArg;
+	Analyzer *a = (Analyzer*)analyzerArg;
 	char statBuffer[DATA_LENGTH];
 	char *buffPointer = NULL;
 	int i;
 	double idle, prevIdle, total, prevTotal, totalDiff;
 
-	sendLog(interThreadComm->logger, "Analyzer thread running.");
+	sendLog(a->loggerHandle, "Analyzer thread running.");
 	
 	while(1)
 	{
-		pthread_kill(interThreadComm->watchdogHandle, ANALYZER_SIG);
-		dequeue(interThreadComm->fromReader, statBuffer);
+		pthread_kill(a->watchdogHandle, ANALYZER_SIG);
+		dequeue(a->fromReader, statBuffer);
 		
 		buffPointer = statBuffer;
-		for( i = 0 ; i < interThreadComm->coreCount ; i++)
+		for( i = 0 ; i < a->coreCount ; i++)
 		{
 			sscanf(buffPointer, "%s %i %i %i %i %i %i %i %i %i %i",
-				 interThreadComm->current[i].core,
-				&interThreadComm->current[i].user,
-				&interThreadComm->current[i].nice,
-				&interThreadComm->current[i].system,
-				&interThreadComm->current[i].idle,
-				&interThreadComm->current[i].iowait,
-				&interThreadComm->current[i].irq,
-				&interThreadComm->current[i].softirq,
-				&interThreadComm->current[i].steal,
-				&interThreadComm->current[i].guest,
-				&interThreadComm->current[i].guest_nice);
+				 a->current[i].core,
+				&a->current[i].user,
+				&a->current[i].nice,
+				&a->current[i].system,
+				&a->current[i].idle,
+				&a->current[i].iowait,
+				&a->current[i].irq,
+				&a->current[i].softirq,
+				&a->current[i].steal,
+				&a->current[i].guest,
+				&a->current[i].guest_nice);
 
 			buffPointer = strchr(buffPointer, '\n');
 			buffPointer++;
 		}
 
-		pthread_mutex_lock(&interThreadComm->averageResultsLock);
-		for( i = 0 ; i < interThreadComm->coreCount ; i++)
+		pthread_mutex_lock(&a->averageResultsLock);
+		for( i = 0 ; i < a->coreCount ; i++)
 		{
-			idle = (double)(interThreadComm->current[i].idle + interThreadComm->current[i].iowait);
-			prevIdle = (double)(interThreadComm->previous[i].idle + interThreadComm->previous[i].iowait);
+			idle = (double)(a->current[i].idle + a->current[i].iowait);
+			prevIdle = (double)(a->previous[i].idle + a->previous[i].iowait);
 
-			total =  (double)(interThreadComm->current[i].user
-					+interThreadComm->current[i].nice
-					+interThreadComm->current[i].system
-					+interThreadComm->current[i].idle
-					+interThreadComm->current[i].iowait
-					+interThreadComm->current[i].irq
-					+interThreadComm->current[i].softirq
-					+interThreadComm->current[i].steal);
+			total =  (double)(a->current[i].user
+					+a->current[i].nice
+					+a->current[i].system
+					+a->current[i].idle
+					+a->current[i].iowait
+					+a->current[i].irq
+					+a->current[i].softirq
+					+a->current[i].steal);
 
-			prevTotal =  (double)(interThreadComm->previous[i].user
-					+interThreadComm->previous[i].nice
-					+interThreadComm->previous[i].system
-					+interThreadComm->previous[i].idle
-					+interThreadComm->previous[i].iowait
-					+interThreadComm->previous[i].irq
-					+interThreadComm->previous[i].softirq
-					+interThreadComm->previous[i].steal);
+			prevTotal =  (double)(a->previous[i].user
+					+a->previous[i].nice
+					+a->previous[i].system
+					+a->previous[i].idle
+					+a->previous[i].iowait
+					+a->previous[i].irq
+					+a->previous[i].softirq
+					+a->previous[i].steal);
 
 			totalDiff = total - prevTotal;
 
 			
-			interThreadComm->averageResults[i] += (totalDiff - (idle - prevIdle))/(totalDiff);
-			interThreadComm->averageResults[i] /= 2;			
-			interThreadComm->previous[i] = interThreadComm->current[i];
+			a->averageResults[i] += (totalDiff - (idle - prevIdle))/(totalDiff);
+			a->averageResults[i] /= 2;			
+			a->previous[i] = a->current[i];
 		}
-		pthread_mutex_unlock(&interThreadComm->averageResultsLock);
+		pthread_mutex_unlock(&a->averageResultsLock);
 		
 	}
 }
 
-int analyzerInit(AnalyzerComm *comm)
+int analyzerInit(Analyzer *comm)
 {
-	AnalyzerComm *interThreadComm = (AnalyzerComm*)comm;
+	Analyzer *a = (Analyzer*)comm;
 	char statBuffer[DATA_LENGTH] = {0};
 	char *buffPointer = statBuffer;
 	int i = 0;
-	pthread_mutex_init(&(interThreadComm->averageResultsLock), NULL);
+	pthread_mutex_init(&(a->averageResultsLock), NULL);
 	
 	FILE *statFile = fopen("/proc/stat", "r");
 	fread(statBuffer, sizeof(char), DATA_LENGTH, statFile);		
 	fclose(statFile);
 
-	interThreadComm->coreCount	= StringOccuranceCount(statBuffer, "cpu");
+	a->coreCount = StringOccuranceCount(statBuffer, "cpu");
 
-	interThreadComm->averageResults = malloc((unsigned long)interThreadComm->coreCount * sizeof(double));
-	if(interThreadComm->averageResults == NULL)
+	a->averageResults = malloc((unsigned long)a->coreCount * sizeof(double));
+	if(a->averageResults == NULL)
 	{
 		return MALLOC_FAILURE;
 	}
 		
-	interThreadComm->current = malloc((unsigned long)interThreadComm->coreCount * sizeof(CpuStat));
-	if(interThreadComm->current == NULL)
+	a->current = malloc((unsigned long)a->coreCount * sizeof(CpuStat));
+	if(a->current == NULL)
 	{
-		free(interThreadComm->averageResults);
+		free(a->averageResults);
 		return MALLOC_FAILURE;
 	}
 		
-	interThreadComm->previous = malloc((unsigned long)interThreadComm->coreCount * sizeof(CpuStat));
-	if(interThreadComm->previous == NULL)
+	a->previous = malloc((unsigned long)a->coreCount * sizeof(CpuStat));
+	if(a->previous == NULL)
 	{
-		free(interThreadComm->averageResults);
-		free(interThreadComm->current);
+		free(a->averageResults);
+		free(a->current);
 		return MALLOC_FAILURE;
 	}	
 
 
 
-	for(i=0;i<(int)interThreadComm->coreCount;i++)
+	for(i=0;i<(int)a->coreCount;i++)
 	{
 		sscanf(buffPointer, "%s %i %i %i %i %i %i %i %i %i %i",
-			 interThreadComm->previous[i].core,
-			&interThreadComm->previous[i].user,
-			&interThreadComm->previous[i].nice,
-			&interThreadComm->previous[i].system,
-			&interThreadComm->previous[i].idle,
-			&interThreadComm->previous[i].iowait,
-			&interThreadComm->previous[i].irq,
-			&interThreadComm->previous[i].softirq,
-			&interThreadComm->previous[i].steal,
-			&interThreadComm->previous[i].guest,
-			&interThreadComm->previous[i].guest_nice);
+			 a->previous[i].core,
+			&a->previous[i].user,
+			&a->previous[i].nice,
+			&a->previous[i].system,
+			&a->previous[i].idle,
+			&a->previous[i].iowait,
+			&a->previous[i].irq,
+			&a->previous[i].softirq,
+			&a->previous[i].steal,
+			&a->previous[i].guest,
+			&a->previous[i].guest_nice);
 
 		buffPointer = strchr(buffPointer, '\n');
 		buffPointer++;
-		interThreadComm->averageResults[i] = 0.5;
+		a->averageResults[i] = 0.5;
 	}
 	
 	return 0;
 }
 
 
-void analyzerDestroy(AnalyzerComm *comm)
+void analyzerDestroy(Analyzer *comm)
 {
 	
 	free(comm->averageResults);
@@ -143,7 +143,6 @@ void analyzerDestroy(AnalyzerComm *comm)
 	
 	free(comm->current);
 	comm->current=NULL;
-			
 }
 
 int StringOccuranceCount(char* text, char* searchedStr)

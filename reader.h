@@ -1,25 +1,28 @@
 #ifndef READER_H
 #define READER_H
+
 #include"queue.h"
-#include<stdio.h>
 #include"logger.h"
-#include<pthread.h>
-#include<time.h>
 #include"watchdog.h"
+#include<pthread.h>
+#include<stdio.h>
+#include<time.h>
 
 
 #define PATH "/proc/stat"
 #define SLEEP_TIME_NSEC 50000000 //50 ms
 
-typedef struct ReaderComm
+typedef struct Reader
 {
 	Queue *toAnalyzer;
-	LoggerComm *logger;
+	Logger *loggerHandle;
 	FILE *statFile;
 	pthread_t watchdogHandle;
-} ReaderComm;
+	struct timespec waitTime;
+} Reader;
 
-void* readFunction(void*);
+void* readerRun(void*);
+void readerInit(Reader*);
 
 
 #endif

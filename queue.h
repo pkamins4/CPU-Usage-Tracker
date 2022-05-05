@@ -2,6 +2,9 @@
 #define QUEUE_H
 #include<semaphore.h>
 #include<pthread.h>
+#include<string.h>
+#include<stdio.h>
+#include<stdlib.h>
 
 #define DATA_LENGTH 2048
 #define PSHARED 0

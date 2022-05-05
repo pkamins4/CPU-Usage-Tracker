@@ -1,22 +1,20 @@
 #include"logger.h"
 #include <stdbool.h>
 
-void* logFunction(void *loggerArg)
+void* loggerRun(void *loggerArg)
 {
-	LoggerComm *interThreadComm = (LoggerComm*)loggerArg;
+	Logger *l = (Logger*)loggerArg;
 	char buffer[DATA_LENGTH]={0};
-
 
 	while(true)
 	{
-		dequeue(interThreadComm->threadsInfo, buffer);
-		fprintf(interThreadComm->logs, "%s\n", buffer);
-		fflush(interThreadComm->logs);
+		dequeue(l->threadsInfo, buffer);
+		fprintf(l->logs, "%s\n", buffer);
+		fflush(l->logs);
 	}
-
 }
 
-int loggerInit(LoggerComm *loggerArg)
+int loggerInit(Logger *loggerArg)
 {
 	loggerArg->logs = fopen(LOG_FILE, "w");
 	if(loggerArg->logs == NULL)
@@ -26,7 +24,7 @@ int loggerInit(LoggerComm *loggerArg)
 	 return 0;
 }
 
-void loggerDestroy(LoggerComm *loggerArg)
+void loggerDestroy(Logger *loggerArg)
 {
 	if(loggerArg->logs != NULL)
 	{
@@ -35,7 +33,7 @@ void loggerDestroy(LoggerComm *loggerArg)
 	}
 }
 
-void sendLog(LoggerComm *loggerArg, char *message)
+void sendLog(Logger *loggerArg, char *message)
 {
 	enqueue(loggerArg->threadsInfo, message);
 }
