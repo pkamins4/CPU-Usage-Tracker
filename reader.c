@@ -1,22 +1,19 @@
 #include"reader.h"
-#include"queue.h"
-#include<pthread.h>
-#include<stdio.h>
-#include <time.h>
-
 
 void* readFunction(void *readerArg)
 {
 	struct timespec readWait;
-	readWait.tv_sec = (time_t)0;
-	readWait.tv_nsec = (long)SLEEP_TIME;
+	readWait.tv_sec = (long)0;
+	readWait.tv_nsec = (long)SLEEP_TIME_NSEC;
 	ReaderComm *interThreadComm = (ReaderComm*)readerArg;
 	sendLog(interThreadComm->logger, "Reader thread running.");	
+	char statBuffer[DATA_LENGTH] = {0};
 
-	char statBuffer[DATA_LENGTH] = {0};	
+
 	while(1)
 	{
 		nanosleep(&readWait, NULL);
+		pthread_kill(interThreadComm->watchdogHandle, READER_SIG);
 
 		pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
 		interThreadComm->statFile = fopen(PATH, "r");
@@ -24,6 +21,7 @@ void* readFunction(void *readerArg)
 		fclose(interThreadComm->statFile );
 		interThreadComm->statFile = NULL;
 		pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+
 		enqueue(interThreadComm->toAnalyzer, statBuffer);		
 	}
 

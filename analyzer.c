@@ -1,11 +1,4 @@
 #include"analyzer.h"
-#include"queue.h"
-#include <stdio.h> 
-#include <stdbool.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdnoreturn.h>
-
 
 void* analyzeFunction(void *commArg)
 {
@@ -19,7 +12,7 @@ void* analyzeFunction(void *commArg)
 	
 	while(1)
 	{
-
+		pthread_kill(interThreadComm->watchdogHandle, ANALYZER_SIG);
 		dequeue(interThreadComm->fromReader, statBuffer);
 		
 		buffPointer = statBuffer;

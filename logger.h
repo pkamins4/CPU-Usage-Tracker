@@ -17,6 +17,6 @@ typedef struct LoggerComm
 void* logFunction(void*);
 int loggerInit(LoggerComm*);
 void loggerDestroy(LoggerComm*);
-void sendLog(LoggerComm*, const char*);
+void sendLog(LoggerComm*, char*);
 
 #endif

@@ -12,6 +12,7 @@ void* printFunction(void* commArg)
 
 	while(1)
 	{
+		pthread_kill(interThreadComm->watchdogHandle, PRINTER_SIG);
 		sleep(1);
 
 		pthread_mutex_lock(interThreadComm->averageResultsLock);
