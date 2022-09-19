@@ -2,7 +2,7 @@
 
 
 
-void* readerRun(void *readerArg)
+void* readerCallback(void *readerArg)
 {
 	Reader *r = (Reader*)readerArg;
 	char statBuffer[DATA_LENGTH] = {0};
@@ -22,6 +22,15 @@ void* readerRun(void *readerArg)
 		enqueue(r->toAnalyzer, statBuffer);		
 	}
 
+}
+
+int readerRun(Reader* r)
+{
+	int retVal = pthread_create( &(r->readerThread),
+				NULL,
+				&readerCallback,
+				r );
+	return retVal;
 }
 
 Reader* readerInit(Queue *q)
