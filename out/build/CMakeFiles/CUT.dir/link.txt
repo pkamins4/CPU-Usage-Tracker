@@ -1,1 +1,1 @@
-/usr/bin/cc CMakeFiles/CUT.dir/main.c.o CMakeFiles/CUT.dir/queue.c.o CMakeFiles/CUT.dir/reader.c.o CMakeFiles/CUT.dir/analyzer.c.o CMakeFiles/CUT.dir/printer.c.o CMakeFiles/CUT.dir/logger.c.o CMakeFiles/CUT.dir/watchdog.c.o -o CUT 
+/usr/bin/cc CMakeFiles/CUT.dir/src/main.c.o CMakeFiles/CUT.dir/src/analyzer.c.o CMakeFiles/CUT.dir/src/logger.c.o CMakeFiles/CUT.dir/src/printer.c.o CMakeFiles/CUT.dir/src/queue.c.o CMakeFiles/CUT.dir/src/reader.c.o CMakeFiles/CUT.dir/src/watchdog.c.o -o CUT 

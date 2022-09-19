@@ -15,14 +15,10 @@
 typedef struct Reader
 {
 	Queue *toAnalyzer;
-	Logger *loggerHandle;
-	FILE *statFile;
-	pthread_t watchdogHandle;
-	struct timespec waitTime;
 } Reader;
 
 void* readerRun(void*);
-void readerInit(Reader*);
-
+Reader* readerInit(Queue*);
+int readerDestroy(Reader*);
 
 #endif

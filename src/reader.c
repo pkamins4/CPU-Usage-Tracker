@@ -5,13 +5,11 @@
 void* readerRun(void *readerArg)
 {
 	Reader *r = (Reader*)readerArg;
-	sendLog(r->loggerHandle, "Reader thread running.");	
 	char statBuffer[DATA_LENGTH] = {0};
 
 	while(true)
 	{
-		nanosleep(&r->waitTime, NULL);
-		pthread_kill(r->watchdogHandle, READER_SIG);
+		nanosleep(SLEEP_TIME_NSEC, NULL);
 
 		pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
 		
@@ -26,10 +24,26 @@ void* readerRun(void *readerArg)
 
 }
 
-void readerInit(Reader *r)
+Reader* readerInit(Queue *q)
 {
-	(r->waitTime).tv_sec	=(long)0;
-	(r->waitTime).tv_nsec	=(long)SLEEP_TIME_NSEC;
+	Reader *new =  malloc(sizeof(Reader));
+	if(!new)
+	{
+		return 0;
+	}
+	new->toAnalyzer = q;
+	return new;
+}
+
+int readerDestroy(Reader *r)
+{
+	if(r->toAnalyzer)
+	{
+		queueDestroy(reader->toAnalyzer);
+	}
+	
+	free(r);
+	return 0;
 }
 
 

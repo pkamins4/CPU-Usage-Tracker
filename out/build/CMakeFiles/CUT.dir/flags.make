@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = 
+C_INCLUDES = -I/home/piotrek/Desktop/projects/c/CPUTracker/include
 
 C_FLAGS = 
 
