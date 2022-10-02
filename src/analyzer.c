@@ -1,8 +1,8 @@
 #include"analyzer.h"
 
-CpuStat* setCpuStat(CpuStat *c, char statBuffer[DATA_LENgTH])
+CpuStat* setCpuStat(CpuStat *c, char statBuffer[DATA_LENGTH])
 {
-	sscanf(buffPointer, "%s %i %i %i %i %i %i %i %i %i %i",
+	sscanf(statBuffer, "%s %i %i %i %i %i %i %i %i %i %i",
 				 c->current[i].core,
 				&c->current[i].user,
 				&c->current[i].nice,
@@ -33,20 +33,8 @@ void* analyzerCallback(void *analyzerArg)
 		
 		buffPointer = statBuffer;
 		for( i = 0 ; i < a->coreCount ; i++)
-		{
-			sscanf(buffPointer, "%s %i %i %i %i %i %i %i %i %i %i",
-				 a->current[i].core,
-				&a->current[i].user,
-				&a->current[i].nice,
-				&a->current[i].system,
-				&a->current[i].idle,
-				&a->current[i].iowait,
-				&a->current[i].irq,
-				&a->current[i].softirq,
-				&a->current[i].steal,
-				&a->current[i].guest,
-				&a->current[i].guest_nice);
-
+		{	
+			setCpuStat(a->current, buffPointer);
 			buffPointer = strchr(buffPointer, '\n');
 			buffPointer++;
 		}
