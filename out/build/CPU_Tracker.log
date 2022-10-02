@@ -1,9 +1,0 @@
-Programm started working.
-Signal SIGTERM handler registered.
-Signal SIGINT handler registered.
-Reader thread running.
-Main waiting for ending signal...
-Analyzer thread running.
-Printer thread running.
-Signal received by main. Ending...
-Program finished.

@@ -21,7 +21,6 @@ void* readerCallback(void *readerArg)
 
 		enqueue(r->toAnalyzer, statBuffer);		
 	}
-
 }
 
 int readerRun(Reader* r)

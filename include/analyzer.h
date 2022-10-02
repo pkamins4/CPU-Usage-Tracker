@@ -33,20 +33,17 @@ typedef struct CpuStat
 
 typedef struct Analyzer
 {	
-	Queue *fromReader;
-	Logger *loggerHandle;
-	CpuStat *current;
-	CpuStat *previous;
-	pthread_mutex_t averageResultsLock;
-	long coreCount;
-	double *averageResults;
-	pthread_t watchdogHandle;
-
+	Queue 	*fromReader;
+	Queue 	*toPrinter;
+	CpuStat current[static 1];
+	CpuStat previous[static 1];
+	double 	avarageResults;
+	int coreCount;
 } Analyzer; 
 
 int StringOccuranceCount(char*, char*);
 void* analyzerRun(void*);
-int analyzerInit(Analyzer*);
+Analyzer* analyzerInit(Queue*, Queue*);
 void analyzerDestroy(Analyzer*);
 
 #endif

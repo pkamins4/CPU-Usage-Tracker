@@ -1,3 +1,0 @@
-/home/piotrek/Desktop/projects/c/CPUTracker/out/build/CMakeFiles/CUT.dir
-/home/piotrek/Desktop/projects/c/CPUTracker/out/build/CMakeFiles/edit_cache.dir
-/home/piotrek/Desktop/projects/c/CPUTracker/out/build/CMakeFiles/rebuild_cache.dir

@@ -1,6 +1,23 @@
 #include"analyzer.h"
 
-void* analyzerRun(void *analyzerArg)
+CpuStat* setCpuStat(CpuStat *c, char statBuffer[DATA_LENgTH])
+{
+	sscanf(buffPointer, "%s %i %i %i %i %i %i %i %i %i %i",
+				 c->current[i].core,
+				&c->current[i].user,
+				&c->current[i].nice,
+				&c->current[i].system,
+				&c->current[i].idle,
+				&c->current[i].iowait,
+				&c->current[i].irq,
+				&c->current[i].softirq,
+				&c->current[i].steal,
+				&c->current[i].guest,
+				&c->current[i].guest_nice);
+	return c;
+}
+
+void* analyzerCallback(void *analyzerArg)
 {
 	Analyzer *a = (Analyzer*)analyzerArg;
 	char statBuffer[DATA_LENGTH];
@@ -8,7 +25,6 @@ void* analyzerRun(void *analyzerArg)
 	int i;
 	double idle, prevIdle, total, prevTotal, totalDiff;
 
-	sendLog(a->loggerHandle, "Analyzer thread running.");
 	
 	while(1)
 	{
@@ -67,7 +83,6 @@ void* analyzerRun(void *analyzerArg)
 			a->previous[i] = a->current[i];
 		}
 		pthread_mutex_unlock(&a->averageResultsLock);
-		
 	}
 }
 
