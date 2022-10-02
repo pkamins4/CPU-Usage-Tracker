@@ -1,4 +1,4 @@
-# Install script for directory: /home/piotrek/Desktop/projects/c/CPUTracker
+# Install script for directory: /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/piotrek/Desktop/projects/c/CPUTracker/out/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/piotrek/Desktop/projects/c/CPU_Tracker/source/out/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

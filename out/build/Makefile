@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/piotrek/Desktop/projects/c/CPUTracker
+CMAKE_SOURCE_DIR = /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/piotrek/Desktop/projects/c/CPUTracker/out/build
+CMAKE_BINARY_DIR = /home/piotrek/Desktop/projects/c/CPU_Tracker/source/out/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/piotrek/Desktop/projects/c/CPUTracker/out/build/CMakeFiles /home/piotrek/Desktop/projects/c/CPUTracker/out/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/piotrek/Desktop/projects/c/CPU_Tracker/source/out/build/CMakeFiles /home/piotrek/Desktop/projects/c/CPU_Tracker/source/out/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/piotrek/Desktop/projects/c/CPUTracker/out/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/piotrek/Desktop/projects/c/CPU_Tracker/source/out/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -129,173 +129,173 @@ CUT/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/build
 .PHONY : CUT/fast
 
-src/analyzer.o: src/analyzer.c.o
-.PHONY : src/analyzer.o
+analyzer.o: analyzer.c.o
+.PHONY : analyzer.o
 
 # target to build an object file
-src/analyzer.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/analyzer.c.o
-.PHONY : src/analyzer.c.o
+analyzer.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/analyzer.c.o
+.PHONY : analyzer.c.o
 
-src/analyzer.i: src/analyzer.c.i
-.PHONY : src/analyzer.i
+analyzer.i: analyzer.c.i
+.PHONY : analyzer.i
 
 # target to preprocess a source file
-src/analyzer.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/analyzer.c.i
-.PHONY : src/analyzer.c.i
+analyzer.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/analyzer.c.i
+.PHONY : analyzer.c.i
 
-src/analyzer.s: src/analyzer.c.s
-.PHONY : src/analyzer.s
+analyzer.s: analyzer.c.s
+.PHONY : analyzer.s
 
 # target to generate assembly for a file
-src/analyzer.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/analyzer.c.s
-.PHONY : src/analyzer.c.s
+analyzer.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/analyzer.c.s
+.PHONY : analyzer.c.s
 
-src/logger.o: src/logger.c.o
-.PHONY : src/logger.o
+logger.o: logger.c.o
+.PHONY : logger.o
 
 # target to build an object file
-src/logger.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/logger.c.o
-.PHONY : src/logger.c.o
+logger.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/logger.c.o
+.PHONY : logger.c.o
 
-src/logger.i: src/logger.c.i
-.PHONY : src/logger.i
+logger.i: logger.c.i
+.PHONY : logger.i
 
 # target to preprocess a source file
-src/logger.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/logger.c.i
-.PHONY : src/logger.c.i
+logger.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/logger.c.i
+.PHONY : logger.c.i
 
-src/logger.s: src/logger.c.s
-.PHONY : src/logger.s
+logger.s: logger.c.s
+.PHONY : logger.s
 
 # target to generate assembly for a file
-src/logger.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/logger.c.s
-.PHONY : src/logger.c.s
+logger.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/logger.c.s
+.PHONY : logger.c.s
 
-src/main.o: src/main.c.o
-.PHONY : src/main.o
+main.o: main.c.o
+.PHONY : main.o
 
 # target to build an object file
-src/main.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/main.c.o
-.PHONY : src/main.c.o
+main.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/main.c.o
+.PHONY : main.c.o
 
-src/main.i: src/main.c.i
-.PHONY : src/main.i
+main.i: main.c.i
+.PHONY : main.i
 
 # target to preprocess a source file
-src/main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/main.c.i
-.PHONY : src/main.c.i
+main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/main.c.i
+.PHONY : main.c.i
 
-src/main.s: src/main.c.s
-.PHONY : src/main.s
+main.s: main.c.s
+.PHONY : main.s
 
 # target to generate assembly for a file
-src/main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/main.c.s
-.PHONY : src/main.c.s
+main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/main.c.s
+.PHONY : main.c.s
 
-src/printer.o: src/printer.c.o
-.PHONY : src/printer.o
+printer.o: printer.c.o
+.PHONY : printer.o
 
 # target to build an object file
-src/printer.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/printer.c.o
-.PHONY : src/printer.c.o
+printer.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/printer.c.o
+.PHONY : printer.c.o
 
-src/printer.i: src/printer.c.i
-.PHONY : src/printer.i
+printer.i: printer.c.i
+.PHONY : printer.i
 
 # target to preprocess a source file
-src/printer.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/printer.c.i
-.PHONY : src/printer.c.i
+printer.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/printer.c.i
+.PHONY : printer.c.i
 
-src/printer.s: src/printer.c.s
-.PHONY : src/printer.s
+printer.s: printer.c.s
+.PHONY : printer.s
 
 # target to generate assembly for a file
-src/printer.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/printer.c.s
-.PHONY : src/printer.c.s
+printer.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/printer.c.s
+.PHONY : printer.c.s
 
-src/queue.o: src/queue.c.o
-.PHONY : src/queue.o
+queue.o: queue.c.o
+.PHONY : queue.o
 
 # target to build an object file
-src/queue.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/queue.c.o
-.PHONY : src/queue.c.o
+queue.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/queue.c.o
+.PHONY : queue.c.o
 
-src/queue.i: src/queue.c.i
-.PHONY : src/queue.i
+queue.i: queue.c.i
+.PHONY : queue.i
 
 # target to preprocess a source file
-src/queue.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/queue.c.i
-.PHONY : src/queue.c.i
+queue.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/queue.c.i
+.PHONY : queue.c.i
 
-src/queue.s: src/queue.c.s
-.PHONY : src/queue.s
+queue.s: queue.c.s
+.PHONY : queue.s
 
 # target to generate assembly for a file
-src/queue.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/queue.c.s
-.PHONY : src/queue.c.s
+queue.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/queue.c.s
+.PHONY : queue.c.s
 
-src/reader.o: src/reader.c.o
-.PHONY : src/reader.o
+reader.o: reader.c.o
+.PHONY : reader.o
 
 # target to build an object file
-src/reader.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/reader.c.o
-.PHONY : src/reader.c.o
+reader.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/reader.c.o
+.PHONY : reader.c.o
 
-src/reader.i: src/reader.c.i
-.PHONY : src/reader.i
+reader.i: reader.c.i
+.PHONY : reader.i
 
 # target to preprocess a source file
-src/reader.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/reader.c.i
-.PHONY : src/reader.c.i
+reader.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/reader.c.i
+.PHONY : reader.c.i
 
-src/reader.s: src/reader.c.s
-.PHONY : src/reader.s
+reader.s: reader.c.s
+.PHONY : reader.s
 
 # target to generate assembly for a file
-src/reader.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/reader.c.s
-.PHONY : src/reader.c.s
+reader.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/reader.c.s
+.PHONY : reader.c.s
 
-src/watchdog.o: src/watchdog.c.o
-.PHONY : src/watchdog.o
+watchdog.o: watchdog.c.o
+.PHONY : watchdog.o
 
 # target to build an object file
-src/watchdog.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/watchdog.c.o
-.PHONY : src/watchdog.c.o
+watchdog.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/watchdog.c.o
+.PHONY : watchdog.c.o
 
-src/watchdog.i: src/watchdog.c.i
-.PHONY : src/watchdog.i
+watchdog.i: watchdog.c.i
+.PHONY : watchdog.i
 
 # target to preprocess a source file
-src/watchdog.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/watchdog.c.i
-.PHONY : src/watchdog.c.i
+watchdog.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/watchdog.c.i
+.PHONY : watchdog.c.i
 
-src/watchdog.s: src/watchdog.c.s
-.PHONY : src/watchdog.s
+watchdog.s: watchdog.c.s
+.PHONY : watchdog.s
 
 # target to generate assembly for a file
-src/watchdog.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/src/watchdog.c.s
-.PHONY : src/watchdog.c.s
+watchdog.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/CUT.dir/build.make CMakeFiles/CUT.dir/watchdog.c.s
+.PHONY : watchdog.c.s
 
 # Help Target
 help:
@@ -306,27 +306,27 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... CUT"
-	@echo "... src/analyzer.o"
-	@echo "... src/analyzer.i"
-	@echo "... src/analyzer.s"
-	@echo "... src/logger.o"
-	@echo "... src/logger.i"
-	@echo "... src/logger.s"
-	@echo "... src/main.o"
-	@echo "... src/main.i"
-	@echo "... src/main.s"
-	@echo "... src/printer.o"
-	@echo "... src/printer.i"
-	@echo "... src/printer.s"
-	@echo "... src/queue.o"
-	@echo "... src/queue.i"
-	@echo "... src/queue.s"
-	@echo "... src/reader.o"
-	@echo "... src/reader.i"
-	@echo "... src/reader.s"
-	@echo "... src/watchdog.o"
-	@echo "... src/watchdog.i"
-	@echo "... src/watchdog.s"
+	@echo "... analyzer.o"
+	@echo "... analyzer.i"
+	@echo "... analyzer.s"
+	@echo "... logger.o"
+	@echo "... logger.i"
+	@echo "... logger.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
+	@echo "... printer.o"
+	@echo "... printer.i"
+	@echo "... printer.s"
+	@echo "... queue.o"
+	@echo "... queue.i"
+	@echo "... queue.s"
+	@echo "... reader.o"
+	@echo "... reader.i"
+	@echo "... reader.s"
+	@echo "... watchdog.o"
+	@echo "... watchdog.i"
+	@echo "... watchdog.s"
 .PHONY : help
 
 

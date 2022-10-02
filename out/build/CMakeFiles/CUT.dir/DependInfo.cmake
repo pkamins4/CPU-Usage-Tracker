@@ -8,13 +8,13 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/piotrek/Desktop/projects/c/CPUTracker/src/analyzer.c" "CMakeFiles/CUT.dir/src/analyzer.c.o" "gcc" "CMakeFiles/CUT.dir/src/analyzer.c.o.d"
-  "/home/piotrek/Desktop/projects/c/CPUTracker/src/logger.c" "CMakeFiles/CUT.dir/src/logger.c.o" "gcc" "CMakeFiles/CUT.dir/src/logger.c.o.d"
-  "/home/piotrek/Desktop/projects/c/CPUTracker/src/main.c" "CMakeFiles/CUT.dir/src/main.c.o" "gcc" "CMakeFiles/CUT.dir/src/main.c.o.d"
-  "/home/piotrek/Desktop/projects/c/CPUTracker/src/printer.c" "CMakeFiles/CUT.dir/src/printer.c.o" "gcc" "CMakeFiles/CUT.dir/src/printer.c.o.d"
-  "/home/piotrek/Desktop/projects/c/CPUTracker/src/queue.c" "CMakeFiles/CUT.dir/src/queue.c.o" "gcc" "CMakeFiles/CUT.dir/src/queue.c.o.d"
-  "/home/piotrek/Desktop/projects/c/CPUTracker/src/reader.c" "CMakeFiles/CUT.dir/src/reader.c.o" "gcc" "CMakeFiles/CUT.dir/src/reader.c.o.d"
-  "/home/piotrek/Desktop/projects/c/CPUTracker/src/watchdog.c" "CMakeFiles/CUT.dir/src/watchdog.c.o" "gcc" "CMakeFiles/CUT.dir/src/watchdog.c.o.d"
+  "/home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/analyzer.c" "CMakeFiles/CUT.dir/analyzer.c.o" "gcc" "CMakeFiles/CUT.dir/analyzer.c.o.d"
+  "/home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/logger.c" "CMakeFiles/CUT.dir/logger.c.o" "gcc" "CMakeFiles/CUT.dir/logger.c.o.d"
+  "/home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/main.c" "CMakeFiles/CUT.dir/main.c.o" "gcc" "CMakeFiles/CUT.dir/main.c.o.d"
+  "/home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/printer.c" "CMakeFiles/CUT.dir/printer.c.o" "gcc" "CMakeFiles/CUT.dir/printer.c.o.d"
+  "/home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/queue.c" "CMakeFiles/CUT.dir/queue.c.o" "gcc" "CMakeFiles/CUT.dir/queue.c.o.d"
+  "/home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/reader.c" "CMakeFiles/CUT.dir/reader.c.o" "gcc" "CMakeFiles/CUT.dir/reader.c.o.d"
+  "/home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/watchdog.c" "CMakeFiles/CUT.dir/watchdog.c.o" "gcc" "CMakeFiles/CUT.dir/watchdog.c.o.d"
   )
 
 # Targets to which this target links.

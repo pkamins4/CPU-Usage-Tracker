@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/piotrek/Desktop/projects/c/CPUTracker
+CMAKE_SOURCE_DIR = /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/piotrek/Desktop/projects/c/CPUTracker/out/build
+CMAKE_BINARY_DIR = /home/piotrek/Desktop/projects/c/CPU_Tracker/source/out/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/CUT.dir/depend.make
@@ -69,127 +69,127 @@ include CMakeFiles/CUT.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/CUT.dir/flags.make
 
-CMakeFiles/CUT.dir/src/main.c.o: CMakeFiles/CUT.dir/flags.make
-CMakeFiles/CUT.dir/src/main.c.o: /home/piotrek/Desktop/projects/c/CPUTracker/src/main.c
-CMakeFiles/CUT.dir/src/main.c.o: CMakeFiles/CUT.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/piotrek/Desktop/projects/c/CPUTracker/out/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/CUT.dir/src/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/CUT.dir/src/main.c.o -MF CMakeFiles/CUT.dir/src/main.c.o.d -o CMakeFiles/CUT.dir/src/main.c.o -c /home/piotrek/Desktop/projects/c/CPUTracker/src/main.c
+CMakeFiles/CUT.dir/main.c.o: CMakeFiles/CUT.dir/flags.make
+CMakeFiles/CUT.dir/main.c.o: /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/main.c
+CMakeFiles/CUT.dir/main.c.o: CMakeFiles/CUT.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/piotrek/Desktop/projects/c/CPU_Tracker/source/out/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/CUT.dir/main.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/CUT.dir/main.c.o -MF CMakeFiles/CUT.dir/main.c.o.d -o CMakeFiles/CUT.dir/main.c.o -c /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/main.c
 
-CMakeFiles/CUT.dir/src/main.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CUT.dir/src/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/piotrek/Desktop/projects/c/CPUTracker/src/main.c > CMakeFiles/CUT.dir/src/main.c.i
+CMakeFiles/CUT.dir/main.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CUT.dir/main.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/main.c > CMakeFiles/CUT.dir/main.c.i
 
-CMakeFiles/CUT.dir/src/main.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CUT.dir/src/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/piotrek/Desktop/projects/c/CPUTracker/src/main.c -o CMakeFiles/CUT.dir/src/main.c.s
+CMakeFiles/CUT.dir/main.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CUT.dir/main.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/main.c -o CMakeFiles/CUT.dir/main.c.s
 
-CMakeFiles/CUT.dir/src/queue.c.o: CMakeFiles/CUT.dir/flags.make
-CMakeFiles/CUT.dir/src/queue.c.o: /home/piotrek/Desktop/projects/c/CPUTracker/src/queue.c
-CMakeFiles/CUT.dir/src/queue.c.o: CMakeFiles/CUT.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/piotrek/Desktop/projects/c/CPUTracker/out/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/CUT.dir/src/queue.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/CUT.dir/src/queue.c.o -MF CMakeFiles/CUT.dir/src/queue.c.o.d -o CMakeFiles/CUT.dir/src/queue.c.o -c /home/piotrek/Desktop/projects/c/CPUTracker/src/queue.c
+CMakeFiles/CUT.dir/queue.c.o: CMakeFiles/CUT.dir/flags.make
+CMakeFiles/CUT.dir/queue.c.o: /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/queue.c
+CMakeFiles/CUT.dir/queue.c.o: CMakeFiles/CUT.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/piotrek/Desktop/projects/c/CPU_Tracker/source/out/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/CUT.dir/queue.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/CUT.dir/queue.c.o -MF CMakeFiles/CUT.dir/queue.c.o.d -o CMakeFiles/CUT.dir/queue.c.o -c /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/queue.c
 
-CMakeFiles/CUT.dir/src/queue.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CUT.dir/src/queue.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/piotrek/Desktop/projects/c/CPUTracker/src/queue.c > CMakeFiles/CUT.dir/src/queue.c.i
+CMakeFiles/CUT.dir/queue.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CUT.dir/queue.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/queue.c > CMakeFiles/CUT.dir/queue.c.i
 
-CMakeFiles/CUT.dir/src/queue.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CUT.dir/src/queue.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/piotrek/Desktop/projects/c/CPUTracker/src/queue.c -o CMakeFiles/CUT.dir/src/queue.c.s
+CMakeFiles/CUT.dir/queue.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CUT.dir/queue.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/queue.c -o CMakeFiles/CUT.dir/queue.c.s
 
-CMakeFiles/CUT.dir/src/reader.c.o: CMakeFiles/CUT.dir/flags.make
-CMakeFiles/CUT.dir/src/reader.c.o: /home/piotrek/Desktop/projects/c/CPUTracker/src/reader.c
-CMakeFiles/CUT.dir/src/reader.c.o: CMakeFiles/CUT.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/piotrek/Desktop/projects/c/CPUTracker/out/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/CUT.dir/src/reader.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/CUT.dir/src/reader.c.o -MF CMakeFiles/CUT.dir/src/reader.c.o.d -o CMakeFiles/CUT.dir/src/reader.c.o -c /home/piotrek/Desktop/projects/c/CPUTracker/src/reader.c
+CMakeFiles/CUT.dir/reader.c.o: CMakeFiles/CUT.dir/flags.make
+CMakeFiles/CUT.dir/reader.c.o: /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/reader.c
+CMakeFiles/CUT.dir/reader.c.o: CMakeFiles/CUT.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/piotrek/Desktop/projects/c/CPU_Tracker/source/out/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/CUT.dir/reader.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/CUT.dir/reader.c.o -MF CMakeFiles/CUT.dir/reader.c.o.d -o CMakeFiles/CUT.dir/reader.c.o -c /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/reader.c
 
-CMakeFiles/CUT.dir/src/reader.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CUT.dir/src/reader.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/piotrek/Desktop/projects/c/CPUTracker/src/reader.c > CMakeFiles/CUT.dir/src/reader.c.i
+CMakeFiles/CUT.dir/reader.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CUT.dir/reader.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/reader.c > CMakeFiles/CUT.dir/reader.c.i
 
-CMakeFiles/CUT.dir/src/reader.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CUT.dir/src/reader.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/piotrek/Desktop/projects/c/CPUTracker/src/reader.c -o CMakeFiles/CUT.dir/src/reader.c.s
+CMakeFiles/CUT.dir/reader.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CUT.dir/reader.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/reader.c -o CMakeFiles/CUT.dir/reader.c.s
 
-CMakeFiles/CUT.dir/src/analyzer.c.o: CMakeFiles/CUT.dir/flags.make
-CMakeFiles/CUT.dir/src/analyzer.c.o: /home/piotrek/Desktop/projects/c/CPUTracker/src/analyzer.c
-CMakeFiles/CUT.dir/src/analyzer.c.o: CMakeFiles/CUT.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/piotrek/Desktop/projects/c/CPUTracker/out/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/CUT.dir/src/analyzer.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/CUT.dir/src/analyzer.c.o -MF CMakeFiles/CUT.dir/src/analyzer.c.o.d -o CMakeFiles/CUT.dir/src/analyzer.c.o -c /home/piotrek/Desktop/projects/c/CPUTracker/src/analyzer.c
+CMakeFiles/CUT.dir/analyzer.c.o: CMakeFiles/CUT.dir/flags.make
+CMakeFiles/CUT.dir/analyzer.c.o: /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/analyzer.c
+CMakeFiles/CUT.dir/analyzer.c.o: CMakeFiles/CUT.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/piotrek/Desktop/projects/c/CPU_Tracker/source/out/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/CUT.dir/analyzer.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/CUT.dir/analyzer.c.o -MF CMakeFiles/CUT.dir/analyzer.c.o.d -o CMakeFiles/CUT.dir/analyzer.c.o -c /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/analyzer.c
 
-CMakeFiles/CUT.dir/src/analyzer.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CUT.dir/src/analyzer.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/piotrek/Desktop/projects/c/CPUTracker/src/analyzer.c > CMakeFiles/CUT.dir/src/analyzer.c.i
+CMakeFiles/CUT.dir/analyzer.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CUT.dir/analyzer.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/analyzer.c > CMakeFiles/CUT.dir/analyzer.c.i
 
-CMakeFiles/CUT.dir/src/analyzer.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CUT.dir/src/analyzer.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/piotrek/Desktop/projects/c/CPUTracker/src/analyzer.c -o CMakeFiles/CUT.dir/src/analyzer.c.s
+CMakeFiles/CUT.dir/analyzer.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CUT.dir/analyzer.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/analyzer.c -o CMakeFiles/CUT.dir/analyzer.c.s
 
-CMakeFiles/CUT.dir/src/printer.c.o: CMakeFiles/CUT.dir/flags.make
-CMakeFiles/CUT.dir/src/printer.c.o: /home/piotrek/Desktop/projects/c/CPUTracker/src/printer.c
-CMakeFiles/CUT.dir/src/printer.c.o: CMakeFiles/CUT.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/piotrek/Desktop/projects/c/CPUTracker/out/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/CUT.dir/src/printer.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/CUT.dir/src/printer.c.o -MF CMakeFiles/CUT.dir/src/printer.c.o.d -o CMakeFiles/CUT.dir/src/printer.c.o -c /home/piotrek/Desktop/projects/c/CPUTracker/src/printer.c
+CMakeFiles/CUT.dir/printer.c.o: CMakeFiles/CUT.dir/flags.make
+CMakeFiles/CUT.dir/printer.c.o: /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/printer.c
+CMakeFiles/CUT.dir/printer.c.o: CMakeFiles/CUT.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/piotrek/Desktop/projects/c/CPU_Tracker/source/out/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/CUT.dir/printer.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/CUT.dir/printer.c.o -MF CMakeFiles/CUT.dir/printer.c.o.d -o CMakeFiles/CUT.dir/printer.c.o -c /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/printer.c
 
-CMakeFiles/CUT.dir/src/printer.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CUT.dir/src/printer.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/piotrek/Desktop/projects/c/CPUTracker/src/printer.c > CMakeFiles/CUT.dir/src/printer.c.i
+CMakeFiles/CUT.dir/printer.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CUT.dir/printer.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/printer.c > CMakeFiles/CUT.dir/printer.c.i
 
-CMakeFiles/CUT.dir/src/printer.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CUT.dir/src/printer.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/piotrek/Desktop/projects/c/CPUTracker/src/printer.c -o CMakeFiles/CUT.dir/src/printer.c.s
+CMakeFiles/CUT.dir/printer.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CUT.dir/printer.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/printer.c -o CMakeFiles/CUT.dir/printer.c.s
 
-CMakeFiles/CUT.dir/src/logger.c.o: CMakeFiles/CUT.dir/flags.make
-CMakeFiles/CUT.dir/src/logger.c.o: /home/piotrek/Desktop/projects/c/CPUTracker/src/logger.c
-CMakeFiles/CUT.dir/src/logger.c.o: CMakeFiles/CUT.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/piotrek/Desktop/projects/c/CPUTracker/out/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/CUT.dir/src/logger.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/CUT.dir/src/logger.c.o -MF CMakeFiles/CUT.dir/src/logger.c.o.d -o CMakeFiles/CUT.dir/src/logger.c.o -c /home/piotrek/Desktop/projects/c/CPUTracker/src/logger.c
+CMakeFiles/CUT.dir/logger.c.o: CMakeFiles/CUT.dir/flags.make
+CMakeFiles/CUT.dir/logger.c.o: /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/logger.c
+CMakeFiles/CUT.dir/logger.c.o: CMakeFiles/CUT.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/piotrek/Desktop/projects/c/CPU_Tracker/source/out/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/CUT.dir/logger.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/CUT.dir/logger.c.o -MF CMakeFiles/CUT.dir/logger.c.o.d -o CMakeFiles/CUT.dir/logger.c.o -c /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/logger.c
 
-CMakeFiles/CUT.dir/src/logger.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CUT.dir/src/logger.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/piotrek/Desktop/projects/c/CPUTracker/src/logger.c > CMakeFiles/CUT.dir/src/logger.c.i
+CMakeFiles/CUT.dir/logger.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CUT.dir/logger.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/logger.c > CMakeFiles/CUT.dir/logger.c.i
 
-CMakeFiles/CUT.dir/src/logger.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CUT.dir/src/logger.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/piotrek/Desktop/projects/c/CPUTracker/src/logger.c -o CMakeFiles/CUT.dir/src/logger.c.s
+CMakeFiles/CUT.dir/logger.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CUT.dir/logger.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/logger.c -o CMakeFiles/CUT.dir/logger.c.s
 
-CMakeFiles/CUT.dir/src/watchdog.c.o: CMakeFiles/CUT.dir/flags.make
-CMakeFiles/CUT.dir/src/watchdog.c.o: /home/piotrek/Desktop/projects/c/CPUTracker/src/watchdog.c
-CMakeFiles/CUT.dir/src/watchdog.c.o: CMakeFiles/CUT.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/piotrek/Desktop/projects/c/CPUTracker/out/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/CUT.dir/src/watchdog.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/CUT.dir/src/watchdog.c.o -MF CMakeFiles/CUT.dir/src/watchdog.c.o.d -o CMakeFiles/CUT.dir/src/watchdog.c.o -c /home/piotrek/Desktop/projects/c/CPUTracker/src/watchdog.c
+CMakeFiles/CUT.dir/watchdog.c.o: CMakeFiles/CUT.dir/flags.make
+CMakeFiles/CUT.dir/watchdog.c.o: /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/watchdog.c
+CMakeFiles/CUT.dir/watchdog.c.o: CMakeFiles/CUT.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/piotrek/Desktop/projects/c/CPU_Tracker/source/out/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/CUT.dir/watchdog.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/CUT.dir/watchdog.c.o -MF CMakeFiles/CUT.dir/watchdog.c.o.d -o CMakeFiles/CUT.dir/watchdog.c.o -c /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/watchdog.c
 
-CMakeFiles/CUT.dir/src/watchdog.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CUT.dir/src/watchdog.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/piotrek/Desktop/projects/c/CPUTracker/src/watchdog.c > CMakeFiles/CUT.dir/src/watchdog.c.i
+CMakeFiles/CUT.dir/watchdog.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/CUT.dir/watchdog.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/watchdog.c > CMakeFiles/CUT.dir/watchdog.c.i
 
-CMakeFiles/CUT.dir/src/watchdog.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CUT.dir/src/watchdog.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/piotrek/Desktop/projects/c/CPUTracker/src/watchdog.c -o CMakeFiles/CUT.dir/src/watchdog.c.s
+CMakeFiles/CUT.dir/watchdog.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/CUT.dir/watchdog.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src/watchdog.c -o CMakeFiles/CUT.dir/watchdog.c.s
 
 # Object files for target CUT
 CUT_OBJECTS = \
-"CMakeFiles/CUT.dir/src/main.c.o" \
-"CMakeFiles/CUT.dir/src/queue.c.o" \
-"CMakeFiles/CUT.dir/src/reader.c.o" \
-"CMakeFiles/CUT.dir/src/analyzer.c.o" \
-"CMakeFiles/CUT.dir/src/printer.c.o" \
-"CMakeFiles/CUT.dir/src/logger.c.o" \
-"CMakeFiles/CUT.dir/src/watchdog.c.o"
+"CMakeFiles/CUT.dir/main.c.o" \
+"CMakeFiles/CUT.dir/queue.c.o" \
+"CMakeFiles/CUT.dir/reader.c.o" \
+"CMakeFiles/CUT.dir/analyzer.c.o" \
+"CMakeFiles/CUT.dir/printer.c.o" \
+"CMakeFiles/CUT.dir/logger.c.o" \
+"CMakeFiles/CUT.dir/watchdog.c.o"
 
 # External object files for target CUT
 CUT_EXTERNAL_OBJECTS =
 
-CUT: CMakeFiles/CUT.dir/src/main.c.o
-CUT: CMakeFiles/CUT.dir/src/queue.c.o
-CUT: CMakeFiles/CUT.dir/src/reader.c.o
-CUT: CMakeFiles/CUT.dir/src/analyzer.c.o
-CUT: CMakeFiles/CUT.dir/src/printer.c.o
-CUT: CMakeFiles/CUT.dir/src/logger.c.o
-CUT: CMakeFiles/CUT.dir/src/watchdog.c.o
+CUT: CMakeFiles/CUT.dir/main.c.o
+CUT: CMakeFiles/CUT.dir/queue.c.o
+CUT: CMakeFiles/CUT.dir/reader.c.o
+CUT: CMakeFiles/CUT.dir/analyzer.c.o
+CUT: CMakeFiles/CUT.dir/printer.c.o
+CUT: CMakeFiles/CUT.dir/logger.c.o
+CUT: CMakeFiles/CUT.dir/watchdog.c.o
 CUT: CMakeFiles/CUT.dir/build.make
 CUT: CMakeFiles/CUT.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/piotrek/Desktop/projects/c/CPUTracker/out/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking C executable CUT"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/piotrek/Desktop/projects/c/CPU_Tracker/source/out/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking C executable CUT"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/CUT.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -201,6 +201,6 @@ CMakeFiles/CUT.dir/clean:
 .PHONY : CMakeFiles/CUT.dir/clean
 
 CMakeFiles/CUT.dir/depend:
-	cd /home/piotrek/Desktop/projects/c/CPUTracker/out/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/piotrek/Desktop/projects/c/CPUTracker /home/piotrek/Desktop/projects/c/CPUTracker /home/piotrek/Desktop/projects/c/CPUTracker/out/build /home/piotrek/Desktop/projects/c/CPUTracker/out/build /home/piotrek/Desktop/projects/c/CPUTracker/out/build/CMakeFiles/CUT.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/piotrek/Desktop/projects/c/CPU_Tracker/source/out/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src /home/piotrek/Desktop/projects/c/CPU_Tracker/source/src /home/piotrek/Desktop/projects/c/CPU_Tracker/source/out/build /home/piotrek/Desktop/projects/c/CPU_Tracker/source/out/build /home/piotrek/Desktop/projects/c/CPU_Tracker/source/out/build/CMakeFiles/CUT.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/CUT.dir/depend
 
