@@ -49,6 +49,8 @@ int readerDestroy(Reader *r)
 	{
 		queueDestroy(reader->toAnalyzer);
 	}
+
+	pthread_join(r->readerThread);
 	
 	free(r);
 	return 0;

@@ -41,7 +41,6 @@ typedef struct Analyzer
 	int coreCount;
 } Analyzer; 
 
-int StringOccuranceCount(char*, char*);
 void* analyzerRun(void*);
 Analyzer* analyzerInit(Queue*, Queue*);
 void analyzerDestroy(Analyzer*);

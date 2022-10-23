@@ -1,21 +1,10 @@
 #include"analyzer.h"
 
-CpuStat* setCpuStat(CpuStat *c, char statBuffer[DATA_LENGTH])
-{
-	sscanf(statBuffer, "%s %i %i %i %i %i %i %i %i %i %i",
-				 c->current[i].core,
-				&c->current[i].user,
-				&c->current[i].nice,
-				&c->current[i].system,
-				&c->current[i].idle,
-				&c->current[i].iowait,
-				&c->current[i].irq,
-				&c->current[i].softirq,
-				&c->current[i].steal,
-				&c->current[i].guest,
-				&c->current[i].guest_nice);
-	return c;
-}
+
+CpuStat* setCpuStat(CpuStat, char[DATA_LENGTH]);
+double sumIdle(CpuStat *c);
+double sumTotal(CpuStat *c);
+int stringOccuranceCount(char[static 1],char[static 1]);
 
 void* analyzerCallback(void *analyzerArg)
 {
@@ -26,7 +15,7 @@ void* analyzerCallback(void *analyzerArg)
 	double idle, prevIdle, total, prevTotal, totalDiff;
 
 	
-	while(1)
+	while(true)
 	{
 		pthread_kill(a->watchdogHandle, ANALYZER_SIG);
 		dequeue(a->fromReader, statBuffer);
@@ -42,33 +31,15 @@ void* analyzerCallback(void *analyzerArg)
 		pthread_mutex_lock(&a->averageResultsLock);
 		for( i = 0 ; i < a->coreCount ; i++)
 		{
-			idle = (double)(a->current[i].idle + a->current[i].iowait);
-			prevIdle = (double)(a->previous[i].idle + a->previous[i].iowait);
-
-			total =  (double)(a->current[i].user
-					+a->current[i].nice
-					+a->current[i].system
-					+a->current[i].idle
-					+a->current[i].iowait
-					+a->current[i].irq
-					+a->current[i].softirq
-					+a->current[i].steal);
-
-			prevTotal =  (double)(a->previous[i].user
-					+a->previous[i].nice
-					+a->previous[i].system
-					+a->previous[i].idle
-					+a->previous[i].iowait
-					+a->previous[i].irq
-					+a->previous[i].softirq
-					+a->previous[i].steal);
-
-			totalDiff = total - prevTotal;
-
+			idle 		= sumIdle(a->current[i]);
+			prevIdle 	= sumIdle(a->previous[i]);
+			total 		= sumTotal(a->current[i]);
+			prevTotal 	= sumTotal(a->previous[i]);
+			totalDiff 	= total - prevTotal;
 			
 			a->averageResults[i] += (totalDiff - (idle - prevIdle))/(totalDiff);
 			a->averageResults[i] /= 2;			
-			a->previous[i] = a->current[i];
+			a->previous[i] 	= a->current[i];
 		}
 		pthread_mutex_unlock(&a->averageResultsLock);
 	}
@@ -86,7 +57,7 @@ int analyzerInit(Analyzer *comm)
 	fread(statBuffer, sizeof(char), DATA_LENGTH, statFile);		
 	fclose(statFile);
 
-	a->coreCount = StringOccuranceCount(statBuffer, "cpu");
+	a->coreCount = stringOccuranceCount(statBuffer, "cpu");
 
 	a->averageResults = malloc((unsigned long)a->coreCount * sizeof(double));
 	if(a->averageResults == NULL)
@@ -107,24 +78,11 @@ int analyzerInit(Analyzer *comm)
 		free(a->averageResults);
 		free(a->current);
 		return MALLOC_FAILURE;
-	}	
-
-
+	}
 
 	for(i=0;i<(int)a->coreCount;i++)
 	{
-		sscanf(buffPointer, "%s %i %i %i %i %i %i %i %i %i %i",
-			 a->previous[i].core,
-			&a->previous[i].user,
-			&a->previous[i].nice,
-			&a->previous[i].system,
-			&a->previous[i].idle,
-			&a->previous[i].iowait,
-			&a->previous[i].irq,
-			&a->previous[i].softirq,
-			&a->previous[i].steal,
-			&a->previous[i].guest,
-			&a->previous[i].guest_nice);
+		setCpuStat(a, buffPointer);
 
 		buffPointer = strchr(buffPointer, '\n');
 		buffPointer++;
@@ -148,7 +106,7 @@ void analyzerDestroy(Analyzer *comm)
 	comm->current=NULL;
 }
 
-int StringOccuranceCount(char* text, char* searchedStr)
+int int stringOccuranceCount(char text[static 1],char searchedStr[static 1])
 {
 	int i, j, count;
 	bool found;
@@ -174,4 +132,39 @@ int StringOccuranceCount(char* text, char* searchedStr)
 	}
 
 	return count;
+}
+
+
+CpuStat* setCpuStat(CpuStat *c, char statBuffer[DATA_LENGTH])
+{
+	sscanf(statBuffer, "%s %i %i %i %i %i %i %i %i %i %i",
+				 c->current.core,
+				&c->current.user,
+				&c->current.nice,
+				&c->current.system,
+				&c->current.idle,
+				&c->current.iowait,
+				&c->current.irq,
+				&c->current.softirq,
+				&c->current.steal,
+				&c->current.guest,
+				&c->current.guest_nice);
+	return c;
+}
+
+double sumIdle(CpuStat c)
+{
+	return (double)(c.idle + c.iowait);
+}
+
+double sumTotal(CpuStat c)
+{
+	return (double)(c.user
+					+c.nice
+					+c.system
+					+c.idle
+					+c.iowait
+					+c.irq
+					+c.softirq
+					+c.steal);
 }
