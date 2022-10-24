@@ -7,7 +7,7 @@
 #include<string.h>
 #include<stdlib.h>
 #include<stdnoreturn.h>
-#
+
 
 #define CORE_STR_LEN 8
 #define MALLOC_FAILURE -2

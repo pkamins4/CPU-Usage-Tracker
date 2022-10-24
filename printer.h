@@ -5,13 +5,13 @@
 
 typedef struct Printer
 {
-	long *coreCount;
-	double *averageResults;
-	pthread_mutex_t *averageResultsLock;
-	pthread_t watchdogHandle;
+	Queue *fromAnalyzer;
+	pthread_t printerThread;	
 
 } Printer;
 
-void* printerRun(void*);
+Printer* printerInit(Queue*);
+int printerRun(Printer*);
+void printerDestroy(Printer*);
 
 #endif
