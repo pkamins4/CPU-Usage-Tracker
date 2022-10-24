@@ -1,7 +1,5 @@
 #include"reader.h"
 
-
-
 void* readerCallback(void *readerArg)
 {
 	Reader *r = (Reader*)readerArg;

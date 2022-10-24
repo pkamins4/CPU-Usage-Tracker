@@ -2,8 +2,6 @@
 #define READER_H
 
 #include"queue.h"
-#include"logger.h"
-#include"watchdog.h"
 #include<pthread.h>
 #include<stdio.h>
 #include<time.h>

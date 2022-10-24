@@ -7,13 +7,26 @@
 #include<string.h>
 #include<stdlib.h>
 #include<stdnoreturn.h>
-#include"logger.h"
-#include"watchdog.h"
-
+#
 
 #define CORE_STR_LEN 8
 #define MALLOC_FAILURE -2
 
+
+typedef struct CpuStat;
+
+typedef struct Analyzer
+{	
+	Queue 	*fromReader;
+	Queue 	*toPrinter;
+	CpuStat *current;
+	CpuStat *previous;
+	pthread_t analyzerThread;
+} Analyzer; 
+
+void* analyzerRun(void*);
+Analyzer* analyzerInit(Queue*, Queue*);
+void analyzerDestroy(Analyzer*);
 
 typedef struct CpuStat
 {
@@ -30,19 +43,5 @@ typedef struct CpuStat
 	int guest_nice;
 
 } CpuStat;
-
-typedef struct Analyzer
-{	
-	Queue 	*fromReader;
-	Queue 	*toPrinter;
-	CpuStat current[static 1];
-	CpuStat previous[static 1];
-	double 	avarageResults;
-	int coreCount;
-} Analyzer; 
-
-void* analyzerRun(void*);
-Analyzer* analyzerInit(Queue*, Queue*);
-void analyzerDestroy(Analyzer*);
 
 #endif

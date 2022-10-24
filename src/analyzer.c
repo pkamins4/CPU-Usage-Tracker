@@ -17,7 +17,6 @@ void* analyzerCallback(void *analyzerArg)
 	
 	while(true)
 	{
-		pthread_kill(a->watchdogHandle, ANALYZER_SIG);
 		dequeue(a->fromReader, statBuffer);
 		
 		buffPointer = statBuffer;
@@ -42,15 +41,40 @@ void* analyzerCallback(void *analyzerArg)
 			a->previous[i] 	= a->current[i];
 		}
 		pthread_mutex_unlock(&a->averageResultsLock);
+
 	}
 }
 
+
+Analyzer* analyzerInit(Queue* fromReaderParam, Queue *toPrinterParam)
+{
+	char statBuffer[DATA_LENGTH] = {0};
+	char *buffPointer = statBuffer;
+
+	Analyzer *A 	= malloc(sizeof(Analyzer));
+	A->fromReader 	= fromReaderParam;
+	A->toPrinter	= toPrinterParam;
+	
+	int coreCount	= countCores(); 
+	A->current		= malloc( sizeof(CpuStat) * (coreCount + 1) );
+	A->previous		= malloc( sizeof(CpuStat) * (coreCount + 1) );
+
+	for( i=0 ; i < coreCount ; i++ )
+	{
+		setCpuStat(A->previous, buffPointer);
+
+		buffPointer = strchr(buffPointer, '\n');
+		buffPointer++;
+	}
+
+
+}
 int analyzerInit(Analyzer *comm)
 {
 	Analyzer *a = (Analyzer*)comm;
 	char statBuffer[DATA_LENGTH] = {0};
 	char *buffPointer = statBuffer;
-	int i = 0;
+	size_t i = 0;
 	pthread_mutex_init(&(a->averageResultsLock), NULL);
 	
 	FILE *statFile = fopen("/proc/stat", "r");
@@ -92,12 +116,17 @@ int analyzerInit(Analyzer *comm)
 	return 0;
 }
 
+void* analyzerRun(void *a)
+{
+	int retVal = pthread_create( &(a->analyzerThread),
+				NULL,
+				&analyzerCallback,
+				a );
+	return retVal;
+}
 
 void analyzerDestroy(Analyzer *comm)
 {
-	
-	free(comm->averageResults);
-	comm->averageResults=NULL;
 	
 	free(comm->previous);
 	comm->previous=NULL;
@@ -167,4 +196,13 @@ double sumTotal(CpuStat c)
 					+c.irq
 					+c.softirq
 					+c.steal);
+}
+
+int countCores()
+{
+	FILE *statFile = fopen("/proc/stat", "r");
+	fread(statBuffer, sizeof(char), DATA_LENGTH, statFile);		
+	fclose(statFile);
+
+	return ( stringOccuranceCount(statBuffer, "cpu") - 1 );
 }
