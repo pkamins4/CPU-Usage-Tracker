@@ -12,8 +12,7 @@
 #define CORE_STR_LEN 8
 #define MALLOC_FAILURE -2
 
-
-typedef struct CpuStat;
+typedef struct CpuStat CpuStat;
 
 typedef struct Analyzer
 {	
@@ -22,11 +21,8 @@ typedef struct Analyzer
 	CpuStat *current;
 	CpuStat *previous;
 	pthread_t analyzerThread;
+	int coreCount;
 } Analyzer; 
-
-void* analyzerRun(void*);
-Analyzer* analyzerInit(Queue*, Queue*);
-void analyzerDestroy(Analyzer*);
 
 typedef struct CpuStat
 {
@@ -43,5 +39,10 @@ typedef struct CpuStat
 	int guest_nice;
 
 } CpuStat;
+
+int analyzerRun(Analyzer*);
+Analyzer* analyzerInit(Queue*, Queue*);
+void analyzerDestroy(Analyzer*);
+
 
 #endif

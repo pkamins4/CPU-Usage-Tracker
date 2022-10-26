@@ -1,17 +1,17 @@
 #include"analyzer.h"
 
 
-CpuStat* setCpuStat(CpuStat, char[DATA_LENGTH]);
-double sumIdle(CpuStat *c);
-double sumTotal(CpuStat *c);
+CpuStat* setCpuStat(CpuStat*, char[DATA_LENGTH]);
+double sumIdle(CpuStat c);
+double sumTotal(CpuStat c);
 int stringOccuranceCount(char[static 1],char[static 1]);
-int analyzerCallback(void*);
+void* analyzerCallback(void*);
 int countCores(void);
 
 
 int analyzerRun(Analyzer *A)
 {
-	int retVal = pthread_create( &(a->analyzerThread),
+	int retVal = pthread_create( &(A->analyzerThread),
 				NULL,
 				&analyzerCallback,
 				A );
@@ -39,8 +39,7 @@ void* analyzerCallback(void *analyzerArg)
 			buffPointer = strchr(buffPointer, '\n');
 			buffPointer++;
 		}
-
-		pthread_mutex_lock(&a->averageResultsLock);
+		
 		for( i = 0 ; i < a->coreCount ; i++)
 		{
 			idle 		= sumIdle(a->current[i]);
@@ -48,13 +47,12 @@ void* analyzerCallback(void *analyzerArg)
 			total 		= sumTotal(a->current[i]);
 			prevTotal 	= sumTotal(a->previous[i]);
 			totalDiff 	= total - prevTotal;
-			
+			/*
 			a->averageResults[i] += (totalDiff - (idle - prevIdle))/(totalDiff);
 			a->averageResults[i] /= 2;			
 			a->previous[i] 	= a->current[i];
+			*/
 		}
-		pthread_mutex_unlock(&a->averageResultsLock);
-
 	}
 }
 
@@ -67,11 +65,12 @@ Analyzer* analyzerInit(Queue* fromReaderParam, Queue *toPrinterParam)
 	A->fromReader 	= fromReaderParam;
 	A->toPrinter	= toPrinterParam;
 	
-	int coreCount	= countCores(); 
-	A->current		= malloc( sizeof(CpuStat) * (coreCount + 1) );
-	A->previous		= malloc( sizeof(CpuStat) * (coreCount + 1) );
+	A->coreCount	= countCores(); 
+	A->current		= malloc( sizeof(CpuStat) * (A->coreCount + 1) );
+	A->previous		= malloc( sizeof(CpuStat) * (A->coreCount + 1) );
 
-	for( i=0 ; i < coreCount ; i++ )
+
+	for(int i=0 ; i < A->coreCount ; i++ )
 	{
 		setCpuStat(A->previous, buffPointer);
 
@@ -83,20 +82,20 @@ Analyzer* analyzerInit(Queue* fromReaderParam, Queue *toPrinterParam)
 
 void analyzerDestroy(Analyzer *A)
 {
-	pthread_cancell(A->analyzerThread);
-	pthread_join(A->analyzerThread);
+	pthread_cancel(A->analyzerThread);
+	pthread_join(A->analyzerThread, NULL);
 
 	free(A->previous);
-	comm->previous=NULL;
+	A->previous=NULL;
 	
 	free(A->current);
-	comm->current=NULL;
+	A->current=NULL;
 
 	free(A);
 	A=NULL;
 }
 
-int int stringOccuranceCount(char text[static 1],char searchedStr[static 1])
+int stringOccuranceCount(char text[static 1],char searchedStr[static 1])
 {
 	int i, j, count;
 	bool found;
@@ -128,17 +127,17 @@ int int stringOccuranceCount(char text[static 1],char searchedStr[static 1])
 CpuStat* setCpuStat(CpuStat *c, char statBuffer[DATA_LENGTH])
 {
 	sscanf(statBuffer, "%s %i %i %i %i %i %i %i %i %i %i",
-				 c->current.core,
-				&c->current.user,
-				&c->current.nice,
-				&c->current.system,
-				&c->current.idle,
-				&c->current.iowait,
-				&c->current.irq,
-				&c->current.softirq,
-				&c->current.steal,
-				&c->current.guest,
-				&c->current.guest_nice);
+				 c->core,
+				&c->user,
+				&c->nice,
+				&c->system,
+				&c->idle,
+				&c->iowait,
+				&c->irq,
+				&c->softirq,
+				&c->steal,
+				&c->guest,
+				&c->guest_nice);
 	return c;
 }
 
@@ -162,6 +161,7 @@ double sumTotal(CpuStat c)
 int countCores(void)
 {
 	FILE *statFile = fopen("/proc/stat", "r");
+	char statBuffer[DATA_LENGTH] = {0};
 	fread(statBuffer, sizeof(char), DATA_LENGTH, statFile);		
 	fclose(statFile);
 
