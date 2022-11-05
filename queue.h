@@ -36,5 +36,6 @@ int queueInit(Queue*, unsigned int);
 int queueDestroy(Queue*);
 int enqueue(Queue*, char*);
 int dequeue(Queue*, char*);
+bool isEmpty(Queue*);
 
 #endif

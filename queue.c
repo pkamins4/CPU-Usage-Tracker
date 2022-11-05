@@ -105,3 +105,17 @@ int dequeue(Queue *q, char* buffer)
 
 	return 0;
 }
+
+bool isEmpty(Queue* q)
+{
+	int semVal = 0;
+	sem_getvalue(q->fullSlots, semVal);
+	if(semVal == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}

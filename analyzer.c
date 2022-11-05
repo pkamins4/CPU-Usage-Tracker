@@ -18,14 +18,13 @@ int analyzerRun(Analyzer *A)
 	return retVal;
 }
 
-
 void* analyzerCallback(void *analyzerArg)
 {
 	Analyzer *a = (Analyzer*)analyzerArg;
 	char statBuffer[DATA_LENGTH];
 	char *buffPointer = NULL;
 	int i;
-	double idle, prevIdle, total, prevTotal, totalDiff;
+	double idle, prevIdle, total, prevTotal, totalDiff, idleDiff;
 
 	
 	while(true)
@@ -44,13 +43,15 @@ void* analyzerCallback(void *analyzerArg)
 		{
 			idle 		= sumIdle(a->current[i]);
 			prevIdle 	= sumIdle(a->previous[i]);
+			idleDiff	= idle - prevIdle;
+
 			total 		= sumTotal(a->current[i]);
 			prevTotal 	= sumTotal(a->previous[i]);
 			totalDiff 	= total - prevTotal;
+						
 			/*
-			a->averageResults[i] += (totalDiff - (idle - prevIdle))/(totalDiff);
-			a->averageResults[i] /= 2;			
-			a->previous[i] 	= a->current[i];
+				TODO:Calculate average and send it to 
+					 printer thread.
 			*/
 		}
 	}
@@ -148,7 +149,7 @@ double sumIdle(CpuStat c)
 
 double sumTotal(CpuStat c)
 {
-	return (double)(c.user
+	return (double)( c.user
 					+c.nice
 					+c.system
 					+c.idle
