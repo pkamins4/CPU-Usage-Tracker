@@ -5,14 +5,25 @@
 #include<string.h>
 #include<stdio.h>
 #include<stdlib.h>
+#include<stdbool.h>
 
 #define DATA_LENGTH 2048
 #define PSHARED 0
 
 #define QUEUE_ERROR -1
 
+typedef enum Command
+{
+	ANALYZE,
+	PRINT,
+	KICK_ANL,
+	KICK_PRT,
+	KICK_RDR
+} Command;
+
 typedef struct Node
 {
+	Command cmd;
 	char data[DATA_LENGTH];
 	struct Node *next;
 	
@@ -34,8 +45,8 @@ typedef struct Queue
 
 int queueInit(Queue*, unsigned int);
 int queueDestroy(Queue*);
-int enqueue(Queue*, char*);
-int dequeue(Queue*, char*);
+int enqueue(Queue*, Command,char*);
+int dequeue(Queue*, Node*, char*);
 bool isEmpty(Queue*);
 
 #endif

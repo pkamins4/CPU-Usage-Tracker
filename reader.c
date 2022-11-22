@@ -4,20 +4,21 @@ void* readerCallback(void *readerArg)
 {
 	Reader *r = (Reader*)readerArg;
 	char statBuffer[DATA_LENGTH] = {0};
+	FILE *statFile = NULL;
 
 	while(true)
 	{
-		nanosleep(SLEEP_TIME_NSEC, NULL);
+		const struct timespec sleepTime= {.tv_sec = 0, .tv_nsec = SLEEP_TIME_NSEC};
+		nanosleep(&sleepTime, NULL);
 
 		pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
 		
-		r->statFile = fopen(PATH, "r");
-		fread(statBuffer, sizeof(char), DATA_LENGTH, r->statFile);				
-		fclose(r->statFile);
-		
+		statFile = fopen(PATH, "r");
+		fread(statBuffer, sizeof(char), DATA_LENGTH, statFile);				
+		fclose(statFile);
 		pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
 
-		enqueue(r->toAnalyzer, statBuffer);		
+		enqueue(r->toAnalyzer, ANALYZE, statBuffer);		
 	}
 }
 
@@ -45,10 +46,10 @@ int readerDestroy(Reader *r)
 {
 	if(r->toAnalyzer)
 	{
-		queueDestroy(reader->toAnalyzer);
+		queueDestroy(r->toAnalyzer);
 	}
 
-	pthread_join(r->readerThread);
+	pthread_join(r->readerThread, NULL);
 	
 	free(r);
 	return 0;

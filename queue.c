@@ -49,9 +49,7 @@ int queueDestroy(Queue *q)
 	return 0;
 }
 
-
-
-int enqueue(Queue *q, char *newData)
+int enqueue(Queue *restrict q, Command command,char *restrict newData)
 {
 	sem_wait(&(q->emptySlots));
 	pthread_mutex_lock(&(q->bufferLock));
@@ -62,6 +60,7 @@ int enqueue(Queue *q, char *newData)
 		return QUEUE_ERROR;
 	}
 
+	memcpy(&(newNode->cmd), &command, sizeof(Command));
 	memcpy(newNode->data, newData, sizeof(char)*DATA_LENGTH);
 	newNode->next = NULL;
 
@@ -82,7 +81,7 @@ int enqueue(Queue *q, char *newData)
 	return 0;
 }
 
-int dequeue(Queue *q, char* buffer)
+int dequeue(Queue *q, Node *received, char *buffer)
 {
 
 	sem_wait(&(q->fullSlots));
@@ -91,7 +90,7 @@ int dequeue(Queue *q, char* buffer)
 
 	Node *temp = q->head;
 
-	memcpy(buffer, temp->data, sizeof(char)*DATA_LENGTH);
+	memcpy(received, temp, sizeof(Node));
 
 	q->head = q->head->next;
 	if(q->head == NULL)
@@ -109,7 +108,7 @@ int dequeue(Queue *q, char* buffer)
 bool isEmpty(Queue* q)
 {
 	int semVal = 0;
-	sem_getvalue(q->fullSlots, semVal);
+	sem_getvalue(&(q->fullSlots), &semVal);
 	if(semVal == 0)
 	{
 		return true;
