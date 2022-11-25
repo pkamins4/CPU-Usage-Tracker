@@ -21,7 +21,6 @@ int queueInit(Queue *q, unsigned int queueLength)
 	return 0;
 }
 
-
 int queueDestroy(Queue *q)
 {	
 	Node *temp;	
@@ -81,7 +80,7 @@ int enqueue(Queue *restrict q, Command command,char *restrict newData)
 	return 0;
 }
 
-int dequeue(Queue *q, Node *received, char *buffer)
+int dequeue(Queue *q, Command *cmd, char *buffer)
 {
 
 	sem_wait(&(q->fullSlots));
@@ -90,7 +89,8 @@ int dequeue(Queue *q, Node *received, char *buffer)
 
 	Node *temp = q->head;
 
-	memcpy(received, temp, sizeof(Node));
+	memcpy(cmd, temp->cmd, sizeof(Command));
+	memcpy(buffer, temp->data, DATA_LENGTH);
 
 	q->head = q->head->next;
 	if(q->head == NULL)

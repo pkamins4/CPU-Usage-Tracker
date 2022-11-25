@@ -15,10 +15,7 @@
 typedef enum Command
 {
 	ANALYZE,
-	PRINT,
-	KICK_ANL,
-	KICK_PRT,
-	KICK_RDR
+	PRINT
 } Command;
 
 typedef struct Node
