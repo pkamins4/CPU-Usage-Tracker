@@ -1,6 +1,5 @@
 #include"analyzer.h"
 
-
 CpuStat* setCpuStat(CpuStat*, char[DATA_LENGTH]);
 double sumIdle(CpuStat c);
 double sumTotal(CpuStat c);
@@ -29,7 +28,8 @@ void* analyzerCallback(void *analyzerArg)
 	
 	while(true)
 	{
-		dequeue(a->fromReader, statBuffer);
+		Command cmd;
+		dequeue(a->fromReader, &cmd, statBuffer);
 		
 		buffPointer = statBuffer;
 		for( i = 0 ; i < a->coreCount ; i++)
@@ -48,28 +48,30 @@ void* analyzerCallback(void *analyzerArg)
 			total 		= sumTotal(a->current[i]);
 			prevTotal 	= sumTotal(a->previous[i]);
 			totalDiff 	= total - prevTotal;
-						
-			/*
-				TODO:Calculate average and send it to 
-					 printer thread.
-			*/
+
+			double usage = ( (totalDiff - idleDiff)/totalDiff );
+			char usageMsg[32];
+			sprintf(usageMsg, "%f", usage);
+			enqueue(a->toPrinter, PRINT, usageMsg);
 		}
 	}
 }
 
-Analyzer* analyzerInit(Queue* fromReaderParam, Queue *toPrinterParam)
+Analyzer* analyzerInit(Queue* fromReader, Queue *toPrinter)
 {
 	char statBuffer[DATA_LENGTH] = {0};
 	char *buffPointer = statBuffer;
 
 	Analyzer *A 	= malloc(sizeof(Analyzer));
-	A->fromReader 	= fromReaderParam;
-	A->toPrinter	= toPrinterParam;
+	if(!A) { return NULL;}
+	A->fromReader 	= fromReader;
+	A->toPrinter	= toPrinter;
 	
 	A->coreCount	= countCores(); 
 	A->current		= malloc( sizeof(CpuStat) * (A->coreCount + 1) );
+	if(!A->current) { return NULL;}
 	A->previous		= malloc( sizeof(CpuStat) * (A->coreCount + 1) );
-
+	if(!A->previous) { return NULL;}
 
 	for(int i=0 ; i < A->coreCount ; i++ )
 	{
@@ -78,6 +80,7 @@ Analyzer* analyzerInit(Queue* fromReaderParam, Queue *toPrinterParam)
 		buffPointer = strchr(buffPointer, '\n');
 		buffPointer++;
 	}
+	return A;
 }
 
 

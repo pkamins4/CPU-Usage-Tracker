@@ -2,16 +2,18 @@
 #include <unistd.h>
 #include <stdio.h>
 
-#define AVG_START 0.5
 
 Printer* printerInit(Queue* fromAnalyzer)
 {
-
+	Printer *new = malloc(sizeof(Printer));
+	if(!new){return NULL;}
+	new->fromAnalyzer = fromAnalyzer;
+	return new;
 } 
 
 void* printerCallback(void *analyzerArg)
 {
-
+	
 }
 
 int printerRun(Printer *P)
@@ -25,5 +27,7 @@ int printerRun(Printer *P)
 
 void printerDestroy(Printer *P)
 {
-	
+	pthread_cancel(P->printerThread);
+	pthread_join(P->printerThread, NULL);
+	free(P);
 }

@@ -43,7 +43,7 @@ typedef struct Queue
 int queueInit(Queue*, unsigned int);
 int queueDestroy(Queue*);
 int enqueue(Queue*, Command,char*);
-int dequeue(Queue*, Node*, char*);
+int dequeue(Queue*, Command*, char*);
 bool isEmpty(Queue*);
 
 #endif

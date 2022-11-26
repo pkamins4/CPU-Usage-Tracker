@@ -16,9 +16,9 @@ typedef struct Reader
 	pthread_t readerThread;
 } Reader;
 
-int readerRun(Reader*);
 Reader* readerInit(Queue*);
 int readerDestroy(Reader*);
+int readerRun(Reader*);
 
 #endif
 

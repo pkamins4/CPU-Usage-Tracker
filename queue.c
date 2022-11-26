@@ -89,7 +89,7 @@ int dequeue(Queue *q, Command *cmd, char *buffer)
 
 	Node *temp = q->head;
 
-	memcpy(cmd, temp->cmd, sizeof(Command));
+	memcpy(cmd, &temp->cmd, sizeof(Command));
 	memcpy(buffer, temp->data, DATA_LENGTH);
 
 	q->head = q->head->next;

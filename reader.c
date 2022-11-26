@@ -3,22 +3,20 @@
 void* readerCallback(void *readerArg)
 {
 	Reader *r = (Reader*)readerArg;
-	char statBuffer[DATA_LENGTH] = {0};
-	FILE *statFile = NULL;
+	char statBuffer[DATA_LENGTH] = {0};	
 
 	while(true)
 	{
-		const struct timespec sleepTime= {.tv_sec = 0, .tv_nsec = SLEEP_TIME_NSEC};
+		const struct timespec sleepTime = {.tv_sec = 0, .tv_nsec = SLEEP_TIME_NSEC};
 		nanosleep(&sleepTime, NULL);
 
-		pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
-		
-		statFile = fopen(PATH, "r");
+		pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);		
+		FILE *statFile = fopen(PATH, "r");
 		fread(statBuffer, sizeof(char), DATA_LENGTH, statFile);				
 		fclose(statFile);
 		pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
 
-		enqueue(r->toAnalyzer, ANALYZE, statBuffer);		
+		enqueue(r->toAnalyzer, ANALYZE, statBuffer);
 	}
 }
 

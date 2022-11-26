@@ -3,6 +3,8 @@
 #include<pthread.h>
 #include"queue.h"
 
+#define AVG_START 0.5
+
 typedef struct Printer
 {
 	Queue *fromAnalyzer;
