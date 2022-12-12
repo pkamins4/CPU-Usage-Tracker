@@ -6,6 +6,7 @@ double sumTotal(CpuStat c);
 int stringOccuranceCount(char[static 1],char[static 1]);
 void* analyzerCallback(void*);
 int countCores(void);
+double usageCalculate(CpuStat, CpuStat);
 
 
 int analyzerRun(Analyzer *A)
@@ -19,43 +20,35 @@ int analyzerRun(Analyzer *A)
 
 void* analyzerCallback(void *analyzerArg)
 {
-	Analyzer *a = (Analyzer*)analyzerArg;
-	char statBuffer[DATA_LENGTH];
-	char *buffPointer = NULL;
-	int i;
-	double idle, prevIdle, total, prevTotal, totalDiff, idleDiff;
+	Analyzer *a = (Analyzer*)analyzerArg;	
+	//double idle, prevIdle, total, prevTotal, totalDiff, idleDiff;
 
 	
 	while(true)
 	{
 		Command cmd;
+		char statBuffer[DATA_LENGTH]={0};
 		dequeue(a->fromReader, &cmd, statBuffer);
 		
-		buffPointer = statBuffer;
-		for( i = 0 ; i < a->coreCount ; i++)
+		char *buffPointer = statBuffer;
+		for( int i = 0 ; i < a->coreCount ; i++)
 		{	
+			a->previous = a->current;
 			setCpuStat(a->current, buffPointer);
 			buffPointer = strchr(buffPointer, '\n');
 			buffPointer++;
 		}
 		
-		for( i = 0 ; i < a->coreCount ; i++)
+		for( int i = 0 ; i < a->coreCount ; i++)
 		{
-			idle 		= sumIdle(a->current[i]);
-			prevIdle 	= sumIdle(a->previous[i]);
-			idleDiff	= idle - prevIdle;
-
-			total 		= sumTotal(a->current[i]);
-			prevTotal 	= sumTotal(a->previous[i]);
-			totalDiff 	= total - prevTotal;
-
-			double usage = ( (totalDiff - idleDiff)/totalDiff );
+			double usage = usageCalculate(a->current[i], a->previous[i]);
 			char usageMsg[32];
 			sprintf(usageMsg, "%f", usage);
 			enqueue(a->toPrinter, PRINT, usageMsg);
 		}
 	}
 }
+
 
 Analyzer* analyzerInit(Queue* fromReader, Queue *toPrinter)
 {
@@ -170,4 +163,16 @@ int countCores(void)
 	fclose(statFile);
 
 	return ( stringOccuranceCount(statBuffer, "cpu") - 1 );
+}
+
+double usageCalculate(CpuStat current, CpuStat previous)
+{
+	double idle 		= sumIdle(current);
+	double prevIdle 	= sumIdle(previous);
+	double idleDiff		= idle - prevIdle;
+	double total 		= sumTotal(current);
+	double prevTotal 	= sumTotal(previous);
+	double totalDiff 	= total - prevTotal;
+	
+	return ((totalDiff - idleDiff)/totalDiff);
 }
