@@ -2,4 +2,8 @@
 *.log
 .vscode
 analyzer
+queue
+printer
+reader
+main
 
