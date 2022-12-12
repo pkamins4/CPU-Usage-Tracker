@@ -21,9 +21,7 @@ int analyzerRun(Analyzer *A)
 void* analyzerCallback(void *analyzerArg)
 {
 	Analyzer *a = (Analyzer*)analyzerArg;	
-	//double idle, prevIdle, total, prevTotal, totalDiff, idleDiff;
-
-	
+		
 	while(true)
 	{
 		Command cmd;
@@ -173,6 +171,6 @@ double usageCalculate(CpuStat current, CpuStat previous)
 	double total 		= sumTotal(current);
 	double prevTotal 	= sumTotal(previous);
 	double totalDiff 	= total - prevTotal;
-	
+
 	return ((totalDiff - idleDiff)/totalDiff);
 }
