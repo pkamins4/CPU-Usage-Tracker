@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -g
+CFLAGS=-Wall -g -std=c11
 LFLAGS=-pthread
 
 all: queue analyzer reader
