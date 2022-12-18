@@ -40,8 +40,8 @@ void* analyzerCallback(void *analyzerArg)
 		for( int i = 0 ; i < a->coreCount ; i++)
 		{
 			double usage = calculateUsage(a->current[i], a->previous[i]);
-			char usageMsg[32];
-			sprintf(usageMsg, "%f", usage);
+			char usageMsg[32] = {0};
+			sprintf(usageMsg, "%f\n", usage);
 			enqueue(a->toPrinter, PRINT, usageMsg);
 		}
 	}

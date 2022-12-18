@@ -11,9 +11,25 @@ Printer* printerInit(Queue* fromAnalyzer)
 	return new;
 } 
 
-void* printerCallback(void *analyzerArg)
+void* printerCallback(void *printerArg)
 {
-	
+	Printer *printerObj = (Printer*)printerArg;
+	Command cmd;
+	char received[32] = {0};
+	while(true)
+	{
+		dequeue(printerObj->fromAnalyzer, &cmd, );
+		switch(cmd)
+		{
+			case PRINT:
+
+				break;			
+			default:
+
+
+		}
+		dequeue(printerObj->fromAnalyzer, &cmd, );
+	}
 }
 
 int printerRun(Printer *P)

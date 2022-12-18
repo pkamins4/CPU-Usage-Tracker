@@ -9,3 +9,5 @@ analyzer: analyzer.c
 	$(CC) $(CFLAGS) $(LFLAGS) -c -o $@ $^
 reader: reader.c
 	$(CC) $(CFLAGS) $(LFLAGS) -c -o $@ $^
+printer: printer.c
+	$(CC) $(CFLAGS) $(LFLAGS) -c -o $@ $^
