@@ -6,7 +6,7 @@ double sumTotal(CpuStat c);
 int stringOccuranceCount(char[static 1],char[static 1]);
 void* analyzerCallback(void*);
 int countCores(void);
-double usageCalculate(CpuStat, CpuStat);
+double calculateUsage(CpuStat, CpuStat);
 
 
 int analyzerRun(Analyzer *A)
@@ -39,7 +39,7 @@ void* analyzerCallback(void *analyzerArg)
 		
 		for( int i = 0 ; i < a->coreCount ; i++)
 		{
-			double usage = usageCalculate(a->current[i], a->previous[i]);
+			double usage = calculateUsage(a->current[i], a->previous[i]);
 			char usageMsg[32];
 			sprintf(usageMsg, "%f", usage);
 			enqueue(a->toPrinter, PRINT, usageMsg);
@@ -163,7 +163,7 @@ int countCores(void)
 	return ( stringOccuranceCount(statBuffer, "cpu") - 1 );
 }
 
-double usageCalculate(CpuStat current, CpuStat previous)
+double usagecalculateUsage(CpuStat current, CpuStat previous)
 {
 	double idle 		= sumIdle(current);
 	double prevIdle 	= sumIdle(previous);
