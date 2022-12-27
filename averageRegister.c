@@ -5,8 +5,8 @@
 
 averageRegister* averageRegisterInit(size_t regSize);
 int averageRegisterDestroy(averageRegister*);
-void averegeNextSample(double, averageRegister*);
-double getAverage(averageRegister*);
+void averegeNextSample(double, averageRegister*, int);
+double getAverage(averageRegister*, int);
 
 averageRegister* averageRegisterInit(size_t regSize)
 {
@@ -31,7 +31,7 @@ int averageRegisterDestroy(averageRegister* reg)
 {
     if(reg != NULL)
     {
-        pthread_mutex_destroy(reg->regMutex);
+        pthread_mutex_destroy(&(reg->regMutex));
         free(reg->average);
         free(reg);
         reg = NULL;

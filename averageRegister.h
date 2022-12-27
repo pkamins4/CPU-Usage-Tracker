@@ -13,7 +13,7 @@ typedef struct averageRegister
 
 averageRegister* averageRegisterInit(size_t);
 int averageRegisterDestroy(averageRegister*);
-void averageNextSample(double, averageRegister*);
-double getAverage(averageRegister*);
+void averageNextSample(double, averageRegister*, int);
+double getAverage(averageRegister*, int);
 
 #endif
