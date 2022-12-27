@@ -7,10 +7,11 @@
 typedef struct averageRegister
 {
     pthread_mutex_t regMutex;
-    double average;
+    double *average;
+    size_t regSize;
 }averageRegister;
 
-averageRegister* averageRegisterInit(void);
+averageRegister* averageRegisterInit(size_t);
 int averageRegisterDestroy(averageRegister*);
 void averageNextSample(double, averageRegister*);
 double getAverage(averageRegister*);
