@@ -7,6 +7,7 @@
 #include<string.h>
 #include<stdlib.h>
 #include<stdnoreturn.h>
+#include<pthread.h>
 
 
 #define CORE_STR_LEN 8
@@ -17,10 +18,11 @@ typedef struct CpuStat CpuStat;
 typedef struct Analyzer
 {	
 	Queue 	*fromReader;
-	Queue 	*toPrinter;
+	double *avgRegister;
 	CpuStat *current;
 	CpuStat *previous;
 	pthread_t analyzerThread;
+	pthread_mutex_t avgRegisterMutex;
 	int coreCount;
 } Analyzer; 
 
@@ -41,7 +43,7 @@ typedef struct CpuStat
 } CpuStat;
 
 int analyzerRun(Analyzer*);
-Analyzer* analyzerInit(Queue*, Queue*);
+Analyzer* analyzerInit(Queue*);
 void analyzerDestroy(Analyzer*);
 
 

@@ -7,6 +7,7 @@ int stringOccuranceCount(char[static 1],char[static 1]);
 void* analyzerCallback(void*);
 int countCores(void);
 double calculateUsage(CpuStat, CpuStat);
+void getAvgRegisterValue(Analyzer*, double[static 1]);
 
 
 int analyzerRun(Analyzer *A)
@@ -36,33 +37,34 @@ void* analyzerCallback(void *analyzerArg)
 			buffPointer = strchr(buffPointer, '\n');
 			buffPointer++;
 		}
-		
+		pthread_mutex_lock(&(a->avgRegisterMutex));
 		for( int i = 0 ; i < a->coreCount ; i++)
 		{
 			double usage = calculateUsage(a->current[i], a->previous[i]);
-			char usageMsg[32] = {0};
-			sprintf(usageMsg, "%f\n", usage);
-			enqueue(a->toPrinter, PRINT, usageMsg);
+			a->avgRegister[i] += usage;
+			a->avgRegister[i] /= 2;
 		}
+		pthread_mutex_unlock(&(a->avgRegisterMutex));
 	}
 }
 
 
-Analyzer* analyzerInit(Queue* fromReader, Queue *toPrinter)
+Analyzer* analyzerInit(Queue* fromReader)
 {
 	char statBuffer[DATA_LENGTH] = {0};
 	char *buffPointer = statBuffer;
 
 	Analyzer *A 	= malloc(sizeof(Analyzer));
 	if(!A) { return NULL;}
-	A->fromReader 	= fromReader;
-	A->toPrinter	= toPrinter;
+	A->fromReader 	= fromReader;	
 	
 	A->coreCount	= countCores(); 
 	A->current		= malloc( sizeof(CpuStat) * (A->coreCount + 1) );
 	if(!A->current) { return NULL;}
 	A->previous		= malloc( sizeof(CpuStat) * (A->coreCount + 1) );
 	if(!A->previous) { return NULL;}
+	A->avgRegister 	= malloc( sizeof(double) * (A->coreCount + 1) );
+	if(!A->avgRegister) { return NULL;}
 
 	for(int i=0 ; i < A->coreCount ; i++ )
 	{
@@ -163,7 +165,7 @@ int countCores(void)
 	return ( stringOccuranceCount(statBuffer, "cpu") - 1 );
 }
 
-double usagecalculateUsage(CpuStat current, CpuStat previous)
+double calculateUsage(CpuStat current, CpuStat previous)
 {
 	double idle 		= sumIdle(current);
 	double prevIdle 	= sumIdle(previous);
@@ -173,4 +175,14 @@ double usagecalculateUsage(CpuStat current, CpuStat previous)
 	double totalDiff 	= total - prevTotal;
 
 	return ((totalDiff - idleDiff)/totalDiff);
+}
+
+void getAvgRegisterValue(Analyzer *A, double buffer[static 1])
+{
+	pthread_mutex_lock(&(A->avgRegisterMutex));
+	for(int i = 0; i < A->coreCount; i++)
+	{
+		buffer[i] = A->avgRegister[i];
+	}
+	pthread_mutex_unlock(&(A->avgRegisterMutex));
 }
