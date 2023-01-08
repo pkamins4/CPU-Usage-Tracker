@@ -1,18 +1,16 @@
 #ifndef PRINTER_H
 #define PRINTER_H
 #include<pthread.h>
-#include"queue.h"
-
-#define AVG_START 0.5
+#include"analyzer.h"
 
 typedef struct Printer
 {
-	Queue *fromAnalyzer;
-	pthread_t printerThread;	
-
+	pthread_mutex_t *avgRegisterMutex;
+	size_t avgRegisterSize;
+	double *regBuffer;
 } Printer;
 
-Printer* printerInit(Queue*);
+Printer* printerInit(Analyzer*);
 int printerRun(Printer*);
 void printerDestroy(Printer*);
 

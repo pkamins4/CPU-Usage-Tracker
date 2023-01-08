@@ -55,16 +55,16 @@ Analyzer* analyzerInit(Queue* fromReader)
 	char *buffPointer = statBuffer;
 
 	Analyzer *A 	= malloc(sizeof(Analyzer));
-	if(!A) { return NULL;}
+	if(!A) { exit(-1);}
 	A->fromReader 	= fromReader;	
-	
+	pthread_mutex_init(&(A->avgRegisterMutex), NULL);
 	A->coreCount	= countCores(); 
 	A->current		= malloc( sizeof(CpuStat) * (A->coreCount + 1) );
-	if(!A->current) { return NULL;}
+	if(!A->current) { exit(-1);}
 	A->previous		= malloc( sizeof(CpuStat) * (A->coreCount + 1) );
-	if(!A->previous) { return NULL;}
+	if(!A->previous) { exit(-1);}
 	A->avgRegister 	= malloc( sizeof(double) * (A->coreCount + 1) );
-	if(!A->avgRegister) { return NULL;}
+	if(!A->avgRegister) { exit(-1);}
 
 	for(int i=0 ; i < A->coreCount ; i++ )
 	{
@@ -79,6 +79,7 @@ Analyzer* analyzerInit(Queue* fromReader)
 
 void analyzerDestroy(Analyzer *A)
 {
+	pthread_mutex_destroy(&(A->avgRegisterMutex));
 	pthread_cancel(A->analyzerThread);
 	pthread_join(A->analyzerThread, NULL);
 

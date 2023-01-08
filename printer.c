@@ -3,11 +3,17 @@
 #include <stdio.h>
 
 
-Printer* printerInit(Queue* fromAnalyzer)
+Printer* printerInit(Analyzer *A)
 {
+	if(!A)
+	{
+		exit(-1);
+	}
 	Printer *new = malloc(sizeof(Printer));
-	if(!new){return NULL;}
-	new->fromAnalyzer = fromAnalyzer;
+	if(!new){exit(-1);}
+	new->avgRegisterSize = (size_t)A->coreCount;
+	new->regBuffer = malloc(sizeof(double)*(new->avgRegisterSize));
+	if(!new->regBuffer){exit(-1);}
 	return new;
 } 
 
