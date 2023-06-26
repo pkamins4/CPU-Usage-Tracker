@@ -2,7 +2,9 @@ CC=gcc
 CFLAGS=-Wall -g -std=c11
 LFLAGS=-pthread
 
-all: queue analyzer reader
+
+all: main.c queue analyzer reader printer
+	$(CC) $(CFLAGS) $(LFLAGS) -o $@ $^
 queue: queue.c
 	$(CC) $(CFLAGS) $(LFLAGS) -c -o $@ $^
 analyzer: analyzer.c

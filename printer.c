@@ -12,29 +12,28 @@ Printer* printerInit(Analyzer *A)
 	Printer *new = malloc(sizeof(Printer));
 	if(!new){exit(-1);}
 	new->avgRegisterSize = (size_t)A->coreCount;
-	new->regBuffer = malloc(sizeof(double)*(new->avgRegisterSize));
-	if(!new->regBuffer){exit(-1);}
+	new->avgRegisterPtr = A->avgRegister;
+	new->avgRegisterMutex = &(A->avgRegisterMutex);
+
 	return new;
 } 
 
 void* printerCallback(void *printerArg)
 {
 	Printer *printerObj = (Printer*)printerArg;
-	Command cmd;
-	char received[32] = {0};
+	
 	while(true)
-	{
-		dequeue(printerObj->fromAnalyzer, &cmd, );
-		switch(cmd)
+	{		
+		pthread_mutex_lock(printerObj->avgRegisterMutex);
+		for(int i = 0; i < printerObj->avgRegisterSize; i++)
 		{
-			case PRINT:
-
-				break;			
-			default:
-
-
+			printf("Core %d usage = %2.2f%%", i,  100*printerObj->avgRegisterPtr[i]);
+			printf("\n");
+			printerObj->avgRegisterPtr[i] = 0;
 		}
-		dequeue(printerObj->fromAnalyzer, &cmd, );
+		pthread_mutex_unlock(printerObj->avgRegisterMutex);
+		printf("--------###--------\n");
+		sleep(1);
 	}
 }
 

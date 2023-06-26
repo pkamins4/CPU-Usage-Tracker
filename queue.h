@@ -26,7 +26,6 @@ typedef struct Node
 	
 } Node;
 
-
 typedef struct Queue
 {
 	Node *head;

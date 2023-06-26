@@ -1,13 +1,15 @@
 #include"analyzer.h"
+#include <unistd.h>
+#define DATA_LENGTH 2048
 
-CpuStat* setCpuStat(CpuStat*, char[DATA_LENGTH]);
-double sumIdle(CpuStat c);
-double sumTotal(CpuStat c);
-int stringOccuranceCount(char[static 1],char[static 1]);
-void* analyzerCallback(void*);
-int countCores(void);
-double calculateUsage(CpuStat, CpuStat);
-void getAvgRegisterValue(Analyzer*, double[static 1]);
+CpuStat* 	setCpuStat(CpuStat*, char[DATA_LENGTH]);
+double 		sumIdle(CpuStat c);
+double 		sumTotal(CpuStat c);
+int 		stringOccuranceCount(char[static 1],char[static 1]);
+void* 		analyzerCallback(void*);
+int 		countCores(void);
+double 		calculateUsage(CpuStat, CpuStat);
+void 		getAvgRegisterValue(Analyzer*, double[static 1]);
 
 
 int analyzerRun(Analyzer *A)
@@ -21,38 +23,43 @@ int analyzerRun(Analyzer *A)
 
 void* analyzerCallback(void *analyzerArg)
 {
-	Analyzer *a = (Analyzer*)analyzerArg;	
+	Analyzer *a = (Analyzer*)analyzerArg;
 		
 	while(true)
-	{
+	{		
+		//sleep(1);
 		Command cmd;
 		char statBuffer[DATA_LENGTH]={0};
 		dequeue(a->fromReader, &cmd, statBuffer);
-		
+		//puts("From analyzer");
+		//printf("%s\n", statBuffer);
 		char *buffPointer = statBuffer;
-		for( int i = 0 ; i < a->coreCount ; i++)
+		for( int i = 0 ; i < a->coreCount+1  ; i++)
 		{	
-			a->previous = a->current;
-			setCpuStat(a->current, buffPointer);
+			a->previous[i] = a->current[i];
+			setCpuStat(&(a->current[i]), buffPointer);
 			buffPointer = strchr(buffPointer, '\n');
 			buffPointer++;
 		}
 		pthread_mutex_lock(&(a->avgRegisterMutex));
-		for( int i = 0 ; i < a->coreCount ; i++)
+		for( int i = 0 ; i < a->coreCount+1 ; i++)
 		{
 			double usage = calculateUsage(a->current[i], a->previous[i]);
+			//printf("\tCore%d: %f\n", i, usage);
 			a->avgRegister[i] += usage;
 			a->avgRegister[i] /= 2;
+			//printf("Average at core%d: %f\n",i, a->avgRegister[i]);
 		}
 		pthread_mutex_unlock(&(a->avgRegisterMutex));
+		
 	}
 }
 
 
 Analyzer* analyzerInit(Queue* fromReader)
 {
-	char statBuffer[DATA_LENGTH] = {0};
-	char *buffPointer = statBuffer;
+	//char statBuffer[DATA_LENGTH] = {0};
+	//char *buffPointer = statBuffer;
 
 	Analyzer *A 	= malloc(sizeof(Analyzer));
 	if(!A) { exit(-1);}
@@ -65,7 +72,7 @@ Analyzer* analyzerInit(Queue* fromReader)
 	if(!A->previous) { exit(-1);}
 	A->avgRegister 	= malloc( sizeof(double) * (A->coreCount + 1) );
 	if(!A->avgRegister) { exit(-1);}
-
+/*
 	for(int i=0 ; i < A->coreCount ; i++ )
 	{
 		setCpuStat(A->previous, buffPointer);
@@ -73,6 +80,7 @@ Analyzer* analyzerInit(Queue* fromReader)
 		buffPointer = strchr(buffPointer, '\n');
 		buffPointer++;
 	}
+*/
 	return A;
 }
 
@@ -141,7 +149,9 @@ CpuStat* setCpuStat(CpuStat *c, char statBuffer[DATA_LENGTH])
 
 double sumIdle(CpuStat c)
 {
-	return (double)(c.idle + c.iowait);
+	double retval = (c.idle + c.iowait);
+
+	return retval;
 }
 
 double sumTotal(CpuStat c)
@@ -168,14 +178,27 @@ int countCores(void)
 
 double calculateUsage(CpuStat current, CpuStat previous)
 {
-	double idle 		= sumIdle(current);
-	double prevIdle 	= sumIdle(previous);
-	double idleDiff		= idle - prevIdle;
-	double total 		= sumTotal(current);
-	double prevTotal 	= sumTotal(previous);
-	double totalDiff 	= total - prevTotal;
+	double idle 		= sumIdle(current);	
+	double prevIdle 	= sumIdle(previous);	
+	double idleDiff		= idle - prevIdle;	
+	double total 		= sumTotal(current);	
+	double prevTotal 	= sumTotal(previous);	
+	double totalDiff 	= total - prevTotal;	
+	double retval = ((totalDiff - idleDiff)/totalDiff);
+	/*
+	printf("idle\t\t=%f\n", idle);
+	printf("prevIdle\t=%f\n", prevIdle);	
+	printf("total\t\t=%f\n", total);
+	printf("prevTotal\t=%f\n", prevTotal);
 
-	return ((totalDiff - idleDiff)/totalDiff);
+	printf("totalDiff\t=%f\n", totalDiff);
+	printf("idleDiff\t=%f\n", idleDiff);
+
+	printf("retval\t=%f\n", retval);
+	*/
+
+
+	return retval;
 }
 
 void getAvgRegisterValue(Analyzer *A, double buffer[static 1])

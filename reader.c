@@ -9,12 +9,14 @@ void* readerCallback(void *readerArg)
 	{
 		const struct timespec sleepTime = {.tv_sec = 0, .tv_nsec = SLEEP_TIME_NSEC};
 		nanosleep(&sleepTime, NULL);
+		//puts("From reader");
 
-		pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);		
+		pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, NULL);
 		FILE *statFile = fopen(PATH, "r");
-		fread(statBuffer, sizeof(char), DATA_LENGTH, statFile);				
+		fread(statBuffer, sizeof(char), DATA_LENGTH, statFile);
 		fclose(statFile);
 		pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
+		//printf("%s\n", statBuffer);
 
 		enqueue(r->toAnalyzer, ANALYZE, statBuffer);
 	}

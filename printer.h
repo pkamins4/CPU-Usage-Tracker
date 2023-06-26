@@ -7,7 +7,8 @@ typedef struct Printer
 {
 	pthread_mutex_t *avgRegisterMutex;
 	size_t avgRegisterSize;
-	double *regBuffer;
+	double *avgRegisterPtr;
+	pthread_t printerThread;
 } Printer;
 
 Printer* printerInit(Analyzer*);
