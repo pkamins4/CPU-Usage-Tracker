@@ -1,9 +1,2 @@
-*.o
-*.log
 .vscode
-analyzer
-queue
-printer
-reader
-main
-all
+out/
